@@ -1,0 +1,18 @@
+# Python cache
+__pycache__/
+*.pyc
+
+# Logs
+logs/
+runs/
+
+# Large dataset
+other_20000.jsonl
+
+# IDE
+.vscode/
+.idea/
+
+# Environment
+.env
+.venv/
