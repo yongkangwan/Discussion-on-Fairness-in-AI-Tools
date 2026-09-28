@@ -66,7 +66,7 @@ The public release is being prepared around a **minimal-redistribution** policy:
 - do **not** redistribute copied PubMed titles/abstracts, author affiliations, PubPeer text, or other third-party textual content;
 - provide scripts and documentation for rebuilding model inputs from identifiers using the original data providers.
 
-See [data/README.md](data/README.md) for the data-release policy.
+See [data/README.md](data/README.md) for the data-release policy and [docs/RESULTS.md](docs/RESULTS.md) for a compact summary of the results reported in the paper.
 
 ## Current code
 
@@ -79,6 +79,16 @@ The current repository contains the following core components:
 - `paper_mill_common.py` — shared loading, splitting, aggregation, metrics, and reproducibility utilities.
 - `scripts/export_pmids.py` — export de-duplicated PMID lists from internal JSONL files without redistributing article text.
 - `tests/` — unit and end-to-end smoke tests for the reproduction pipeline.
+
+## Quick check
+
+Run the test suite in one command:
+
+```bash
+bash run_smoke.sh
+```
+
+The smoke test builds a tiny local BERT model and exercises training plus external evaluation without requiring the private research datasets.
 
 ## Installation
 
