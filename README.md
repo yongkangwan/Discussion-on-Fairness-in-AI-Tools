@@ -1,111 +1,151 @@
-# BERT 论文工厂文章筛查复现
+<div align="center">
 
-这套代码直接读取现有 JSONL 中预先切好的 BERT token，在 chunk 层面微调
-`bert-base-uncased`，再把同一 PMID 的所有 chunk 的阳性概率做算术平均，得到文章级
-概率。阳性标签固定为 `1`，阴性标签固定为 `0`。
+# Text-Based AI Tools for Research Integrity Must Be Audited on Linguistic Fairness Before Deployment
 
-## 实现约定
+### NeurIPS 2026 Position Paper Track
 
-- 内部阳性：`positive_chunks.jsonl`。
-- 内部阴性：`top_china.jsonl`、`top_other_train.jsonl`、`top_taiwan.jsonl`。
-- 先按 `(pmid, chunk_index)` 去重，再按 PMID 分层划分 70%/17.5%/12.5%；同一篇文章的
-  chunk 不会跨集合。
-- BERT 输入最长 512 token；代码不静默截断超过 512 的预切分 chunk，而是直接报错。
-- 每个 chunk 继承文章标签，训练损失在 chunk 层面计算。
-- 文章分数为 `mean(softmax(logits)[:, 1])`，不是硬分类均值，也不是 logits 均值。
-- 每轮模型用内部验证集 chunk-level evaluation loss 选择最佳 checkpoint，文章级 AUROC
-  作为同分规则。最佳模型确定后，仅在内部
-  验证集选择一次阈值，随后冻结阈值评估内部测试集和所有外部数据。
-- 阈值目标默认是 Youden 指数；也可切换为 F1 或 balanced accuracy。同分时依次优先
-  specificity、sensitivity 和较高阈值。
+<!-- Authors will be added after de-anonymization. -->
 
-加载器按文件在命令行中的角色强制覆盖标签，而不信任行内旧标签。这一点很重要：
-`positive_chunks_dedup_pubpeer.jsonl` 的现有行内 `label` 全部是 `0`，但作为
-`--positive-files` 传入后会全部按阳性 `1` 评估。
+</div>
 
-## 安装
+## TL;DR
 
-建议使用带 CUDA 的 PyTorch 环境；当前数据规模下，CPU 完整训练会非常慢。
+**Position.** Text-based AI tools used for research-integrity screening should undergo mandatory linguistic-fairness auditing before deployment in editorial, institutional, or policy workflows.
 
-```powershell
+We support this position with a case study of a BERT-based paper-mill detector. The paper shows that strong aggregate benchmark performance can coexist with large linguistic-group disparities: legitimate non-native-English papers from high-impact journals receive a mean predicted paper-mill probability of **42.0%**, compared with **2.0%** for native-English papers. Controlled LLM-based rewriting experiments further show that changing writing style alone can alter model decisions even when content is held fixed.
+
+This repository contains code and release materials for reproducing the case study and auditing the resulting model.
+
+## Why this matters
+
+Research-integrity tools are high-stakes systems. A false positive can affect individual researchers, institutions, journals, and entire research communities.
+
+Text-based detectors are especially vulnerable to shortcut learning because linguistic style may correlate with geography, native-language background, publication venue, publication period, and the labels used to train integrity models. Our position is therefore that these tools should be evaluated not only for overall predictive performance, but also for **fairness across linguistic groups**, transparency of their training data, and the degree to which their decisions rely on legitimate integrity signals rather than stylistic proxies.
+
+## Case study
+
+The paper organizes the empirical analysis into three stages:
+
+1. **Model reproduction** — reproduce the BERT-based paper-mill screening pipeline and establish a reliable baseline.
+2. **Real-world linguistic-bias audit** — compare model behavior on 5,000 non-native-English and 5,000 native-English papers from high-impact journals.
+3. **Controlled style experiments** — use LLM-based generation and rewriting to hold content fixed while varying linguistic style.
+
+### Headline findings
+
+- The reproduced detector achieves strong aggregate validation performance, establishing a credible baseline for the fairness audit.
+- Legitimate non-native-English papers receive a mean predicted paper-mill probability of **42.0%**, compared with **2.0%** for native-English papers.
+- Across controlled experiments, non-native-English style consistently receives substantially higher positive rates than native-English style.
+- In the paired experiments reported in the paper, switching from native-English style to non-native-English style can flip negative predictions to positive, while the reverse direction is not observed.
+
+## Recommended linguistic-fairness auditing
+
+The paper proposes four requirements for text-based research-integrity tools before deployment:
+
+1. **Open source and reproducibility**
+2. **Training-data transparency and fairness disclosure**
+3. **Independent fairness evaluation**
+4. **Interpretability verification**
+
+These requirements are intended as a starting point for community discussion rather than a final specification.
+
+## Repository scope
+
+The public release is being prepared around a **minimal-redistribution** policy:
+
+- release code, configuration, PMIDs, cohort membership, and reproducibility metadata;
+- do **not** redistribute copied PubMed titles/abstracts, author affiliations, PubPeer text, or other third-party textual content;
+- provide scripts and documentation for rebuilding model inputs from identifiers using the original data providers.
+
+See [data/README.md](data/README.md) for the data-release policy.
+
+## Current code
+
+The current repository contains the following core components:
+
+- `train.py` — fine-tune the BERT classifier and select a validation-set threshold.
+- `test.py` — evaluate a frozen model and threshold on external cohorts.
+- `sample_articles.py` — deterministic article-level sampling.
+- `analyze_predictions.py` — article-level summary statistics and bootstrap comparisons.
+- `paper_mill_common.py` — shared loading, splitting, aggregation, metrics, and reproducibility utilities.
+- `scripts/export_pmids.py` — export de-duplicated PMID lists from internal JSONL files without redistributing article text.
+- `tests/` — unit and end-to-end smoke tests for the reproduction pipeline.
+
+## Installation
+
+Python 3.10+ is recommended.
+
+```bash
+python -m venv .venv
+source .venv/bin/activate        # Windows: .venv\Scripts\activate
 python -m pip install -r requirements.txt
 ```
 
-首次运行时会从 Hugging Face 下载 `bert-base-uncased` 权重。若权重已在本地缓存，可加
-`--local-files-only`。现有 JSONL 已经使用 `bert-base-uncased` 的词表编码，代码不会
-重新分词。
+For development and tests:
 
-## 训练与内部测试
+```bash
+python -m pip install -r requirements-dev.txt
+pytest -q
+```
 
-在本目录运行：
+A CUDA-enabled PyTorch installation is recommended for full training runs.
 
-```powershell
-python train.py `
-  --positive-files positive_chunks.jsonl `
-  --negative-files top_china.jsonl top_other_train.jsonl top_taiwan.jsonl `
-  --model-name bert-base-uncased `
-  --output-dir runs/paper_mill_bert_seed42 `
-  --seed 42 `
-  --train-ratio 0.7 `
-  --validation-ratio 0.175 `
-  --test-ratio 0.125 `
-  --epochs 10 `
-  --learning-rate 1.4e-5 `
-  --weight-decay 0.025 `
-  --warmup-ratio 0.15 `
-  --scheduler-type cosine `
-  --train-batch-size 32 `
-  --eval-batch-size 32 `
-  --gradient-accumulation-steps 1 `
-  --threshold-objective youden `
+## Reproducing the BERT baseline
+
+The training code expects pre-tokenized JSONL inputs. The public release will not redistribute source abstracts; model inputs should be rebuilt from released identifiers and source-provider data.
+
+A representative training command is:
+
+```bash
+python train.py \
+  --positive-files <positive.jsonl> \
+  --negative-files <negative_1.jsonl> <negative_2.jsonl> \
+  --model-name bert-base-uncased \
+  --output-dir runs/paper_mill_bert_seed42 \
+  --seed 42 \
+  --train-ratio 0.7 \
+  --validation-ratio 0.175 \
+  --test-ratio 0.125 \
+  --epochs 10 \
+  --learning-rate 1.4e-5 \
+  --weight-decay 0.025 \
+  --warmup-ratio 0.15 \
+  --scheduler-type cosine \
+  --train-batch-size 32 \
+  --eval-batch-size 32 \
+  --threshold-objective youden \
   --fp16
 ```
 
-没有 CUDA 时删去 `--fp16`。每个输出目录必须为空，以免不同实验的文件混在一起。
+The pipeline splits at the **article/PMID level**, keeps all chunks from the same article in the same partition, aggregates chunk probabilities to one article-level score, chooses the classification threshold only on the validation set, and freezes that threshold for later evaluation.
 
-主要产物：
+## Data release
 
-- `split_manifest.json`：文章级划分、数据 SHA-256、去重及标签覆盖统计。
-- `best_model/`：验证集文章级 AUROC 最优的模型与 tokenizer。
-- `threshold.json`：只由内部验证集确定的冻结阈值和选择准则。
-- `validation_article_predictions.jsonl`：验证集文章级概率和分类。
-- `internal_test_article_predictions.jsonl`：内部测试集文章级概率和分类。
-- `internal_results.json`：验证集和内部测试集的文章级指标。
-- `training_history.json`：各轮损失、文章级指标和当轮验证阈值。
+We follow a minimal-redistribution policy:
 
-## 外部测试
+- **Released:** PMIDs, cohort membership, experimental roles/labels, hashes/manifests, and code needed for reproduction.
+- **Not released:** copied PubMed titles/abstracts, author affiliations, PubPeer comments, full-text articles, or internally cached third-party text.
+- Users should retrieve source text directly from the relevant provider and comply with that provider's terms and licensing requirements.
 
-只评估已明确的外部阳性集：
+See [data/README.md](data/README.md) for details.
 
-```powershell
-python test.py `
-  --model-dir runs/paper_mill_bert_seed42/best_model `
-  --threshold-file runs/paper_mill_bert_seed42/threshold.json `
-  --positive-files positive_chunks_dedup_pubpeer.jsonl `
-  --output-dir runs/paper_mill_bert_seed42/external_positive
-```
+## Responsible use
 
-只有阳性时只能估计 sensitivity/recall、TP、FN 和概率分布，不能估计 specificity 或
-AUROC。因此结果文件会将不适用的指标写为 `null`。
+> **Important:** Model scores are research signals for studying model behavior and fairness. They are **not determinations of research misconduct** and should not be used to accuse an individual paper, author, institution, country, or linguistic community of misconduct.
 
-目录中的 `top_other_prove.jsonl` 看起来像候选外部阴性集，但本次需求没有明确确认其
-角色，所以代码不会静默使用它。确认它确实是外部阴性后，可运行完整外部评估：
+A high model score may reflect linguistic style, domain shift, venue, geography, publication period, sampling choices, or other confounding factors. The central purpose of this repository is to study these failure modes and motivate stronger auditing requirements.
 
-```powershell
-python test.py `
-  --model-dir runs/paper_mill_bert_seed42/best_model `
-  --threshold-file runs/paper_mill_bert_seed42/threshold.json `
-  --positive-files positive_chunks_dedup_pubpeer.jsonl `
-  --negative-files top_other_prove.jsonl `
-  --output-dir runs/paper_mill_bert_seed42/external_full
-```
+## Release status
 
-测试脚本默认读取训练目录中的 `split_manifest.json` 并检查 PMID 泄漏；检测到重叠会
-直接停止。输出为 `external_article_predictions.jsonl` 和 `external_results.json`。
+This repository is currently being cleaned for public release. The accepted-paper artifacts and the exact preprocessing/tokenization pipeline are being reconciled with the code currently in the repository. See [PUBLIC_RELEASE_CHECKLIST.md](PUBLIC_RELEASE_CHECKLIST.md) for the remaining tasks.
 
-## 与 BMJ 原文的差异
+## Paper
 
-当前默认采用 [BMJ 原文](https://www.bmj.com/content/392/bmj-2025-087581)报告的
-70% 训练、17.5% 优化、12.5% 内部验证比例。为保持本项目数据的既有 chunk 边界，代码
-仍按 chunk（而非原文的句子）输入并平均 chunk 概率。阈值选择目标在原需求中未指定，故
-做成显式参数并将实际选择完整写入 `threshold.json`。
+The public paper/OpenReview link will be added after the de-anonymized record is available.
+
+## Citation
+
+Citation metadata will be added after the public NeurIPS/OpenReview record is available.
+
+## License
+
+A code license will be added before the repository is made public. Third-party data remain subject to their original providers' terms and are not relicensed by this repository.
