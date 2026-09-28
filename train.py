@@ -63,19 +63,15 @@ def parse_args() -> argparse.Namespace:
         "--positive-files",
         nargs="+",
         type=Path,
-        default=[Path("positive_chunks.jsonl")],
-        help="Internal positive JSONL file(s); their row labels are forced to 1.",
+        required=True,
+        help="Positive-role JSONL file(s); their row labels are forced to 1.",
     )
     parser.add_argument(
         "--negative-files",
         nargs="+",
         type=Path,
-        default=[
-            Path("top_china.jsonl"),
-            Path("top_other_train.jsonl"),
-            Path("top_taiwan.jsonl"),
-        ],
-        help="Internal negative JSONL file(s); their row labels are forced to 0.",
+        required=True,
+        help="Negative-role JSONL file(s); their row labels are forced to 0.",
     )
     parser.add_argument("--model-name", default="bert-base-uncased")
     parser.add_argument("--cache-dir", type=Path, default=None)
@@ -404,8 +400,9 @@ def main() -> None:
         num_labels=2,
         **pretrained_kwargs,
     )
-    model.config.id2label = {0: "AUTHENTIC", 1: "PAPER_MILL"}
-    model.config.label2id = {"AUTHENTIC": 0, "PAPER_MILL": 1}
+    # These names describe the screening decision, not ground-truth misconduct.
+    model.config.id2label = {0: "SCREEN_NEGATIVE", 1: "SCREEN_POSITIVE"}
+    model.config.label2id = {"SCREEN_NEGATIVE": 0, "SCREEN_POSITIVE": 1}
     model.config.paper_mill_run_id = run_id
     model_max_length = int(getattr(model.config, "max_position_embeddings", 512))
     if args.max_length > model_max_length:
