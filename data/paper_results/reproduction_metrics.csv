@@ -1,0 +1,5 @@
+validation_type,method,n,accuracy,sensitivity,specificity
+internal,original,551,0.91,0.87,0.96
+external,original,6194,0.93,0.87,0.99
+internal,our_reproduction,528,0.97,0.97,0.97
+external,our_reproduction,6289,0.98,0.97,0.99
