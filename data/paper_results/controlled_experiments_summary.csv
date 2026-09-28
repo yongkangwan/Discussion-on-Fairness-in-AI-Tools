@@ -1,0 +1,9 @@
+experiment,group,n,positive_rate,ratio_non_native_over_native
+exp1_free_form,non_native_english,3000,0.953,3.1
+exp1_free_form,native_english,3000,0.308,3.1
+exp2_shared_skeleton,non_native_english,3000,0.553,3.0
+exp2_shared_skeleton,native_english,3000,0.184,3.0
+exp3_rewrite_false_positives,non_native_english,913,0.984,
+exp3_rewrite_false_positives,native_english,913,0.894,
+exp4_rewrite_true_negatives,non_native_english,3000,0.044,3.8
+exp4_rewrite_true_negatives,native_english,3000,0.012,3.8
