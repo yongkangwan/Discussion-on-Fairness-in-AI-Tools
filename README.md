@@ -42,6 +42,10 @@ The paper organizes the empirical analysis into three stages:
 
 ### Headline findings
 
+<p align="center">
+  <img src="docs/fairness_gap.svg" alt="Mean predicted paper-mill probability gap between the two audit groups" width="78%"/>
+</p>
+
 - The reproduced detector achieves strong aggregate validation performance, establishing a credible baseline for the fairness audit.
 - Legitimate non-native-English papers receive a mean predicted paper-mill probability of **42.0%**, compared with **2.0%** for native-English papers.
 - Across controlled experiments, non-native-English style consistently receives substantially higher positive rates than native-English style.
@@ -97,6 +101,7 @@ Python 3.10+ is recommended.
 ```bash
 python -m venv .venv
 source .venv/bin/activate        # Windows: .venv\Scripts\activate
+python -m pip install torch  # choose the CPU/CUDA build appropriate for your platform
 python -m pip install -r requirements.txt
 ```
 
