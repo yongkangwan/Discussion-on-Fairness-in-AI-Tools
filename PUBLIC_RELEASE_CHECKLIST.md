@@ -12,9 +12,9 @@ This file is for release preparation and should be removed or converted into an 
 - [ ] Add the final, de-anonymized author list.
 - [ ] Add the paper-specific OpenReview/forum URL and final paper link.
 - [ ] Choose and add a code license.
-- [ ] Export final PMID-only cohort files from the exact artifacts used in the accepted paper.
+- [ ] Recover final accepted-paper PMID/cohort files from an independent backup, if one exists. If none can be recovered, keep the release explicitly methodological rather than claiming exact cohort reproduction.
 - [ ] Add the **exact preprocessing/tokenization code** used to build the pre-tokenized JSONL inputs.
-- [ ] Add the code/prompts/configuration for the paper's four controlled LLM experiments.
+- [ ] Recover or reconstruct from surviving records the code/prompts/configuration for the paper's four controlled LLM experiments, clearly labeling anything reconstructed after acceptance.
 - [ ] Reconcile the repository experiment report with the accepted manuscript.
 
 ## Important result mismatch to resolve
