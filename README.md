@@ -156,7 +156,7 @@ A high model score may reflect linguistic style, domain shift, venue, geography,
 
 ## Release status
 
-This repository is currently being cleaned for public release. The accepted-paper artifacts and the exact preprocessing/tokenization pipeline are being reconciled with the code currently in the repository. See [PUBLIC_RELEASE_CHECKLIST.md](PUBLIC_RELEASE_CHECKLIST.md) for the remaining tasks.
+The original AutoDL workspace used for the final accepted-paper experiments is no longer available. The repository supports **methodological reproduction**, but the exact article-level cohorts and final controlled-experiment artifacts used for the accepted-paper numbers have not been recovered. See [docs/REPRODUCIBILITY.md](docs/REPRODUCIBILITY.md), [data/FINAL_DATA_STATUS.md](data/FINAL_DATA_STATUS.md), and [PUBLIC_RELEASE_CHECKLIST.md](PUBLIC_RELEASE_CHECKLIST.md) for the current release status.
 
 ## Paper
 
