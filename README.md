@@ -63,7 +63,7 @@ See [data/README.md](data/README.md) for the data-release policy.
 The current repository contains the following core components:
 
 - `train.py` — fine-tune the BERT classifier and select a validation-set threshold.
-- `test.py` — evaluate a frozen model and threshold on external cohorts.
+- `evaluate.py` — evaluate a frozen model and threshold on external cohorts.
 - `sample_articles.py` — deterministic article-level sampling.
 - `analyze_predictions.py` — article-level summary statistics and bootstrap comparisons.
 - `paper_mill_common.py` — shared loading, splitting, aggregation, metrics, and reproducibility utilities.
