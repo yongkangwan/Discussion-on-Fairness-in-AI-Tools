@@ -27,12 +27,12 @@ Do not publish the old experiment report as the canonical result record until th
 
 ## Repository hygiene
 
-- [ ] Remove raw JSONL files containing titles/abstracts/affiliations.
-- [ ] Remove manifests containing absolute private filesystem paths.
-- [ ] Remove hard-coded local paths.
-- [ ] Rename `test.py` to a clearer evaluation entry point if desired and update tests/imports.
-- [ ] Replace or remove `negtive_exclude_positive.py`; it contains hard-coded local Windows paths and a typo in the filename.
-- [ ] Add a one-command smoke/demo workflow after the final data-preparation pipeline is fixed.
-- [ ] Add CI for `pytest`.
+- [x] Remove raw JSONL files containing titles/abstracts/affiliations from the current release tree.
+- [x] Remove manifests containing absolute private filesystem paths from the current release tree.
+- [x] Remove the legacy hard-coded local-path filtering script.
+- [x] Rename `test.py` to `evaluate.py` and update the smoke test/imports.
+- [x] Replace `negtive_exclude_positive.py` with portable `scripts/filter_overlap.py`.
+- [x] Add `run_smoke.sh` for a one-command code-path check; a full paper reproduction command remains pending final data preparation.
+- [x] Add GitHub Actions CI for `pytest`.
 - [ ] Run secret scanning before publication.
-- [ ] Create the public repository from a **clean tree without the private repository's Git history**.
+- [ ] Before switching visibility to public, create/rewrite to a **clean history without the removed raw-data blobs**.
