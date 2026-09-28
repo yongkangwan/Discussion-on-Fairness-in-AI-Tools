@@ -7,6 +7,11 @@ This file is for release preparation and should be removed or converted into an 
 - [x] Add paper-derived aggregate tables under `data/paper_results/`.
 - [x] Document that final article-level PMIDs must come from the exact accepted-paper artifacts, not the older mismatched working data.
 
+## Current validation
+
+- [x] GitHub Actions CI is passing on the cleaned current tree.
+- [x] Current default-branch code search shows no old `/root/fuxian`, `D:\\pubmed`, or deleted raw-data filename references.
+
 ## Blocking items
 
 - [ ] Add the final, de-anonymized author list.
@@ -39,5 +44,5 @@ Do not publish the old experiment report as the canonical result record until th
 - [x] Replace `negtive_exclude_positive.py` with portable `scripts/filter_overlap.py`.
 - [x] Add `run_smoke.sh` for a one-command code-path check; a full paper reproduction command remains pending final data preparation.
 - [x] Add GitHub Actions CI for `pytest`.
-- [ ] Run secret scanning before publication.
-- [ ] Before switching visibility to public, create/rewrite to a **clean history without the removed raw-data blobs**.
+- [x] Scan the current default branch for common credential patterns; no matches found.
+- [ ] Before switching visibility to public, rewrite Git history to remove the old raw-data blobs. Exact commands are in `docs/HISTORY_CLEANUP.md`.
