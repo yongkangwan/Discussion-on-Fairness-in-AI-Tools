@@ -1,18 +1,33 @@
 # Python cache
 __pycache__/
-*.pyc
+*.py[cod]
+.pytest_cache/
+.coverage
+htmlcov/
 
-# Logs
+# Logs and experiment outputs
 logs/
 runs/
 
-# Large dataset
-other_20000.jsonl
+# Environments
+.env
+.venv/
+venv/
 
 # IDE
 .vscode/
 .idea/
 
-# Environment
-.env
-.venv/
+# Private / reconstructed data
+*.jsonl
+*.jsonl.manifest.json
+derived/
+data/generated/
+
+# Allow tiny public examples if intentionally added later
+!data/examples/*.jsonl
+
+# Model/cache artifacts
+cache/
+*.safetensors
+*.bin
