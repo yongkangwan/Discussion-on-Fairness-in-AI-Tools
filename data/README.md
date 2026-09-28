@@ -1,18 +1,32 @@
 # Data release policy
 
-This project uses bibliographic identifiers and text retrieved from external scholarly databases. The public repository follows a **minimal-redistribution** policy.
+This repository uses a **minimal-redistribution** data policy.
 
-## What we release
+## Included now
 
-The intended public data package contains only the information needed to reconstruct experimental cohorts without republishing third-party article text:
+Paper-derived aggregate tables are available under `paper_results/`:
 
-- PubMed identifiers (PMIDs)
-- cohort membership / experimental role
-- labels used by the reproduction pipeline
+- `reproduction_metrics.csv`
+- `fairness_audit_summary.csv`
+- `controlled_experiments_summary.csv`
+- `paired_outcomes.csv`
+
+These summarize the results reported in the accepted manuscript.
+
+## Article-level public data
+
+The intended final article-level package will contain only identifiers and experiment metadata needed to reconstruct the cohorts:
+
+- PMIDs
+- split / cohort membership
+- benchmark labels or analysis-group labels
 - deterministic sampling metadata
-- hashes and manifests needed for reproducibility
+- hashes/manifests
+- controlled-experiment pair IDs, prompts/configuration, and model outputs where appropriate
 
-## What we do not release
+The exact final article-level files are **not yet included**, because the currently accessible repository artifacts do not match the accepted manuscript's headline values. See [FINAL_DATA_STATUS.md](FINAL_DATA_STATUS.md).
+
+## Not redistributed
 
 The public repository should not contain:
 
@@ -24,40 +38,20 @@ The public repository should not contain:
 
 Users should retrieve source text directly from the relevant provider and comply with the provider's current terms, licenses, and access policies.
 
-## Exporting PMIDs from an internal working copy
+## Exporting PMIDs from a verified final working copy
 
-If you have access to the private working data, use:
+After the exact accepted-paper artifacts are located:
 
 ```bash
 python scripts/export_pmids.py \
-  --input path/to/internal_cohort.jsonl \
+  --input path/to/verified_final_cohort.jsonl \
   --output data/pmids/cohort.txt
 ```
 
-The script reads the `pmid` field, de-duplicates identifiers, sorts them deterministically, and writes one PMID per line. It does not copy titles, abstracts, affiliations, or token arrays.
-
-Multiple files can be combined:
-
-```bash
-python scripts/export_pmids.py \
-  --input file_a.jsonl file_b.jsonl file_c.jsonl \
-  --output data/pmids/combined_cohort.txt
-```
+The script reads only the `pmid` field, de-duplicates identifiers, and writes one PMID per line.
 
 ## Rebuilding model inputs
 
-The current training code consumes pre-tokenized JSONL. Before the public release is finalized, the exact preprocessing/tokenization script used for the accepted-paper experiments should be included here so that users can rebuild those inputs from the released PMID lists.
+The training code consumes pre-tokenized JSONL. The final public release should include the exact preprocessing/tokenization code used for the accepted-paper experiments so that users can rebuild model inputs from the released identifiers.
 
-Do **not** substitute a newly invented preprocessing pipeline for the one used in the paper: tokenization/chunking choices affect reproducibility.
-
-## Cohorts to export before release
-
-The final release should provide PMID lists corresponding to the paper's experimental cohorts, including:
-
-- reproduction training / validation / test sources
-- external validation cohorts
-- the 5,000-paper non-native-English high-impact sample
-- the 5,000-paper native-English high-impact sample
-- any source-paper cohorts used in the controlled rewriting experiments, where redistribution is permitted
-
-Exact filenames should be documented once the final experiment artifacts are reconciled with the accepted manuscript.
+Do not substitute an approximate preprocessing pipeline: tokenization and chunking choices affect reproducibility.
