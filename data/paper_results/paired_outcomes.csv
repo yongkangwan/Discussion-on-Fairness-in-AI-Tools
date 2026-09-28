@@ -1,0 +1,4 @@
+experiment,a_positive_b_negative,a_negative_b_positive,a_positive_b_positive,a_negative_b_negative,total_pairs
+exp2_shared_skeleton,1107,0,552,1341,3000
+exp3_rewrite_false_positives,82,0,816,15,913
+exp4_rewrite_true_negatives,98,0,35,2866,2999
