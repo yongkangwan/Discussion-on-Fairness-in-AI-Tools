@@ -24,7 +24,7 @@ venv/
 derived/
 data/generated/
 
-# Allow tiny public examples if intentionally added later
+# Allow intentionally curated tiny examples
 !data/examples/*.jsonl
 
 # Model/cache artifacts
