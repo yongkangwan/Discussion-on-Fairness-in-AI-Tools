@@ -7,7 +7,7 @@ from pathlib import Path
 import transformers
 from transformers import BertConfig, BertForSequenceClassification, BertTokenizerFast
 
-import test as evaluate_script
+import evaluate as evaluate_script
 import train as train_script
 
 
@@ -130,7 +130,7 @@ def test_tiny_model_training_and_external_evaluation(
         sys,
         "argv",
         [
-            "test.py",
+            "evaluate.py",
             "--model-dir",
             str(run_dir / "best_model"),
             "--threshold-file",
