@@ -6,6 +6,12 @@
 
 <!-- Authors will be added after de-anonymization. -->
 
+<p align="center">
+  <img alt="NeurIPS 2026 Position Paper Track" src="https://img.shields.io/badge/NeurIPS%202026-Position%20Paper%20Track-8A2BE2?style=flat-square">
+  <img alt="Task" src="https://img.shields.io/badge/Focus-Linguistic%20Fairness-2E8B57?style=flat-square">
+  <img alt="Status" src="https://img.shields.io/badge/Status-Public%20Release%20Prep-DAA520?style=flat-square">
+</p>
+
 </div>
 
 ## TL;DR
@@ -15,6 +21,10 @@
 We support this position with a case study of a BERT-based paper-mill detector. The paper shows that strong aggregate benchmark performance can coexist with large linguistic-group disparities: legitimate non-native-English papers from high-impact journals receive a mean predicted paper-mill probability of **42.0%**, compared with **2.0%** for native-English papers. Controlled LLM-based rewriting experiments further show that changing writing style alone can alter model decisions even when content is held fixed.
 
 This repository contains code and release materials for reproducing the case study and auditing the resulting model.
+
+<p align="center">
+  <img src="docs/pipeline.svg" alt="Three-stage case study pipeline" width="92%"/>
+</p>
 
 ## Why this matters
 
