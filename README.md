@@ -66,7 +66,7 @@ The public release is being prepared around a **minimal-redistribution** policy:
 - do **not** redistribute copied PubMed titles/abstracts, author affiliations, PubPeer text, or other third-party textual content;
 - provide scripts and documentation for rebuilding model inputs from identifiers using the original data providers.
 
-See [data/README.md](data/README.md) for the data-release policy and [docs/RESULTS.md](docs/RESULTS.md) for a compact summary of the results reported in the paper.
+See [data/README.md](data/README.md) for the data-release policy, [data/paper_results/](data/paper_results/) for machine-readable aggregate tables transcribed from the accepted manuscript, and [docs/RESULTS.md](docs/RESULTS.md) for a compact human-readable summary.
 
 ## Current code
 
