@@ -1,6 +1,6 @@
+# Install PyTorch separately for your CPU/CUDA platform.
+# See the Installation section in README.md.
 numpy>=1.24,<3
 scikit-learn>=1.3,<2
-torch>=2.1
 transformers>=4.40,<6
 safetensors>=0.4
-
