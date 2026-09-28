@@ -55,11 +55,8 @@ def parse_args() -> argparse.Namespace:
         "--positive-files",
         nargs="*",
         type=Path,
-        default=[Path("positive_chunks_dedup_pubpeer.jsonl")],
-        help=(
-            "External positive JSONL file(s); row labels are forced to 1. Pass "
-            "--positive-files with no values for a negative-only cohort."
-        ),
+        default=[],
+        help="Positive-role external JSONL file(s); row labels are forced to 1.",
     )
     parser.add_argument(
         "--negative-files",
@@ -109,6 +106,10 @@ def main() -> None:
     args = parse_args()
     if args.batch_size < 1 or args.max_length < 1:
         raise ValueError("--batch-size and --max-length must be positive")
+    if not args.positive_files and not args.negative_files:
+        raise ValueError(
+            "Provide at least one --positive-files or --negative-files input."
+        )
     if args.num_workers < 0:
         raise ValueError("--num-workers cannot be negative")
     set_global_seed(args.seed)
