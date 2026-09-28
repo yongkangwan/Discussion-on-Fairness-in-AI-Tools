@@ -2,6 +2,11 @@
 
 This file is for release preparation and should be removed or converted into an issue before the repository is made public.
 
+## Completed data-release work
+
+- [x] Add paper-derived aggregate tables under `data/paper_results/`.
+- [x] Document that final article-level PMIDs must come from the exact accepted-paper artifacts, not the older mismatched working data.
+
 ## Blocking items
 
 - [ ] Add the final, de-anonymized author list.
