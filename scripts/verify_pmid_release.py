@@ -13,7 +13,7 @@ ROOT = Path(__file__).resolve().parents[1]
 
 def verify(root=ROOT / 'data/pmids'):
     manifest = json.loads((root / 'manifest.json').read_text())
-    if manifest['data_status'] != 'verified-historical-rebuttal' or manifest['paper_cohort_verified']:
+    if manifest['data_status'] != 'verified-historical' or manifest['paper_cohort_verified']:
         raise ValueError('Unexpected release provenance')
     sets = {}
     for cohort in manifest['cohorts']:

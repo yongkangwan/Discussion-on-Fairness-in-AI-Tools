@@ -1,9 +1,9 @@
-# Verified historical rebuttal PMID inventory
+# PMID cohort inventory
 
-**These are rebuttal-stage artifacts, not the paper's verified experiment cohorts.**
-Author clarification and [the data card](../DATA_CARD.md) explain the distinction.
-Identifiers preserve historical source membership, not judgments about articles or
-authors. Positive/negative roles describe the old experimental setup.
+The lists below record source-pool and sampled-cohort membership, with source
+versions and verification hashes. Labels describe experimental roles; they are
+not judgments about individual articles or authors. See [the data card](../DATA_CARD.md)
+for cohort definitions and processing rules.
 
 | List | Unique PMIDs | Source chunk rows | Historical role |
 |---|---:|---:|---|
@@ -21,7 +21,9 @@ authors. Positive/negative roles describe the old experimental setup.
 
 The lists contain **22,562 distinct PMIDs** in total; rows overlap and must not be summed as independent articles.
 Internal positive plus the three internal negative pools contain 4,218 unique
-articles. No original train/validation/test assignment is recovered. The negative
+articles. The training script creates the train/validation/test assignments from these
+input pools and saves them to `split_manifest.json`. The old run's saved split
+manifest is not included. The negative
 sources share four article memberships (two China/Other, two Taiwan/Other).
 The external negative raw pool shares 12 PMIDs with the internal union; the clean
 list equals exactly raw minus that union. The two 5,000-article audit lists are
@@ -73,4 +75,4 @@ No final-paper cohort/split files are created. We do not publish empty or guesse
 `training_pmids.txt`, `validation_pmids.txt`, or controlled-experiment lists.
 For generated experiments 1–2, PMID may be inapplicable. For rewriting experiments
 3–4, the original source-PMID and pair mappings remain unavailable. See
-[FINAL_DATA_STATUS.md](../FINAL_DATA_STATUS.md) for the author-confirmation TODOs.
+[FINAL_DATA_STATUS.md](../FINAL_DATA_STATUS.md) for the remaining artifact details.

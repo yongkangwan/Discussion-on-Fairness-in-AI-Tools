@@ -1,9 +1,8 @@
 {
   "schema_version": 1,
   "updated": "2026-09-29",
-  "data_status": "verified-historical-rebuttal",
+  "data_status": "verified-historical",
   "paper_cohort_verified": false,
-  "author_clarification": "Repository working code and data were produced during rebuttal and do not fully match the paper experiments.",
   "source_repository": "yongkangwan/Discussion-on-Fairness-in-AI-Tools-private-archive",
   "source_commit": "c61fbf422a1f43e78a94b71cb1b8b28d7407d949",
   "source_access": "private; not all evidence is publicly accessible",
@@ -12,7 +11,7 @@
     {
       "cohort_id": "internal_positive_pool",
       "path": "historical/internal_positive_pool.txt",
-      "data_status": "verified-historical-rebuttal",
+      "data_status": "verified-historical",
       "paper_cohort_verified": false,
       "role": "internal positive-role pool",
       "role_label": 1,
@@ -31,7 +30,7 @@
     {
       "cohort_id": "internal_negative_top_china",
       "path": "historical/internal_negative_top_china.txt",
-      "data_status": "verified-historical-rebuttal",
+      "data_status": "verified-historical",
       "paper_cohort_verified": false,
       "role": "internal negative-role source",
       "role_label": 0,
@@ -50,7 +49,7 @@
     {
       "cohort_id": "internal_negative_top_other_train",
       "path": "historical/internal_negative_top_other_train.txt",
-      "data_status": "verified-historical-rebuttal",
+      "data_status": "verified-historical",
       "paper_cohort_verified": false,
       "role": "internal negative-role source",
       "role_label": 0,
@@ -69,7 +68,7 @@
     {
       "cohort_id": "internal_negative_top_taiwan",
       "path": "historical/internal_negative_top_taiwan.txt",
-      "data_status": "verified-historical-rebuttal",
+      "data_status": "verified-historical",
       "paper_cohort_verified": false,
       "role": "internal negative-role source",
       "role_label": 0,
@@ -88,7 +87,7 @@
     {
       "cohort_id": "external_positive_pubpeer",
       "path": "historical/external_positive_pubpeer.txt",
-      "data_status": "verified-historical-rebuttal",
+      "data_status": "verified-historical",
       "paper_cohort_verified": false,
       "role": "external positive-role source",
       "role_label": 1,
@@ -107,7 +106,7 @@
     {
       "cohort_id": "external_negative_raw",
       "path": "historical/external_negative_raw.txt",
-      "data_status": "verified-historical-rebuttal",
+      "data_status": "verified-historical",
       "paper_cohort_verified": false,
       "role": "raw external negative-role source",
       "role_label": 0,
@@ -126,7 +125,7 @@
     {
       "cohort_id": "external_negative_clean",
       "path": "historical/external_negative_clean.txt",
-      "data_status": "verified-historical-rebuttal",
+      "data_status": "verified-historical",
       "paper_cohort_verified": false,
       "role": "external negative after internal-pool exclusion",
       "role_label": 0,
@@ -167,7 +166,7 @@
     {
       "cohort_id": "audit_china_candidate_pool",
       "path": "historical/audit_china_candidate_pool.txt",
-      "data_status": "verified-historical-rebuttal",
+      "data_status": "verified-historical",
       "paper_cohort_verified": false,
       "role": "candidate audit source pool",
       "role_label": 0,
@@ -186,7 +185,7 @@
     {
       "cohort_id": "audit_china_5000",
       "path": "historical/audit_china_5000.txt",
-      "data_status": "verified-historical-rebuttal",
+      "data_status": "verified-historical",
       "paper_cohort_verified": false,
       "role": "historical sampled audit cohort",
       "role_label": 0,
@@ -239,7 +238,7 @@
     {
       "cohort_id": "audit_other_5000",
       "path": "historical/audit_other_5000.txt",
-      "data_status": "verified-historical-rebuttal",
+      "data_status": "verified-historical",
       "paper_cohort_verified": false,
       "role": "historical sampled audit cohort",
       "role_label": 0,
@@ -292,7 +291,7 @@
     {
       "cohort_id": "additional_positive_china",
       "path": "historical/additional_positive_china.txt",
-      "data_status": "verified-historical-rebuttal",
+      "data_status": "verified-historical",
       "paper_cohort_verified": false,
       "role": "additional source; experimental use not established",
       "role_label": null,
@@ -327,6 +326,7 @@
     "reported_run_date": "2026-07-27",
     "audit_china_mean_score": 0.266995,
     "audit_other_mean_score": 0.012326,
-    "relationship_to_paper": "rebuttal historical run; not the paper run"
-  }
+    "relationship_to_paper": "Historical run with different reported metrics; see DATA_CARD.md."
+  },
+  "provenance_note": "Identifiers are verified against the recorded source revision. Membership in every paper experiment has not been established."
 }

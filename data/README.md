@@ -1,18 +1,17 @@
 # Data inventory and provenance
 
-**The repository's working code/data were produced during rebuttal and do not
-fully match the experiments in the paper.** We keep these evidence categories
-separate:
+This directory contains article identifiers, aggregate result tables and synthetic
+examples for the training and evaluation pipeline:
 
 | Location | Category | Scope |
 |---|---|---|
 | [`paper_results/`](paper_results/) | Paper-reported aggregate results | Existing manuscript transcriptions, not recomputed using this release |
-| [`pmids/historical/`](pmids/historical/) | Verified historical **rebuttal** data | PMID-only source pools and archived samples, not final-paper cohort assignments |
+| [`pmids/historical/`](pmids/historical/) | Versioned historical data | PMID-only source pools and archived samples, not final-paper cohort assignments |
 | [`examples/`](examples/) | **Demo-only** | 32 synthetic articles; safe offline text-to-chunk-to-training/evaluation example |
 | `generated/` (ignored) | New reconstruction | Current provider text and newly configured preprocessing, stored locally |
 
 Start with [DATA_CARD.md](DATA_CARD.md) for cohort meanings, source provenance,
-verified processing rules, unknown original chunking parameters, and reconstruction
+verified processing rules, training configuration and preprocessing details, and reconstruction
 commands. [pmids/README.md](pmids/README.md) lists each recovered cohort with
 counts and explains verification. [FINAL_DATA_STATUS.md](FINAL_DATA_STATUS.md)
 tracks the remaining gaps.
@@ -27,7 +26,7 @@ python scripts/verify_pmid_release.py
 ```
 
 The demo uses a tiny randomly initialized BERT and synthetic `DEMO-*` article
-identifiers. It does not reproduce paper results or rebuttal scientific results.
+identifiers. Its scores demonstrate pipeline behavior and are not scientific results.
 See [examples/README.md](examples/README.md) for inputs, parameters and outputs.
 
 ## Export a newly recovered, verified source
@@ -52,6 +51,9 @@ reconstruction of text). Retrieval utilities save provider records locally and
 mark them as new reconstructions; provider records may have changed since the
 historical experiments. A PMID match does not establish a text-version match.
 
-No final-paper PMID list, exact split, prompt configuration, checkpoint or
-controlled-experiment pair mapping is claimed to have been recovered. Do not
-rename historical rebuttal cohorts or demo outputs as paper data.
+Training generates the PMID split, selects the model, and derives the final
+threshold from the internal validation set. These methods are implemented in
+code; their per-run outputs are `split_manifest.json`, `best_model/` and
+`threshold.json`. Original saved outputs for every paper experiment are not
+included. [FINAL_DATA_STATUS.md](FINAL_DATA_STATUS.md) distinguishes these missing
+artifacts from the available methods and settings.

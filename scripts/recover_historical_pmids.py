@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Re-export pinned rebuttal Git blobs as PMID-only lists; archive access required."""
+"""Re-export pinned historical Git blobs as PMID-only lists; archive access required."""
 from __future__ import annotations
 import argparse
 import hashlib
@@ -63,7 +63,7 @@ def main():
         target = out / relative
         target.parent.mkdir(parents=True, exist_ok=True)
         target.write_text(text, encoding='utf-8')
-    print(f'Verified and exported {len(results)} rebuttal lists; not final-paper data.')
+    print(f'Verified and exported {len(results)} historical cohort lists.')
 
 
 if __name__ == '__main__':

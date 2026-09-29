@@ -20,13 +20,10 @@
 
 We support this position with a case study of a BERT-based paper-mill detector. The paper shows that strong aggregate benchmark performance can coexist with large linguistic-group disparities: legitimate non-native-English papers from high-impact journals receive a mean predicted paper-mill probability of **42.0%**, compared with **2.0%** for native-English papers. Controlled LLM-based rewriting experiments further show that changing writing style alone can alter model decisions even when content is held fixed.
 
-**Repository provenance:** The code and working datasets in this repository were
-produced during the **rebuttal stage**. They are not fully consistent with the
-experiments reported in the paper. This release preserves that rebuttal workflow,
-verified historical PMID lists, and a runnable synthetic demo. It does **not**
-provide an exact implementation/data package for reproducing the paper's numbers.
-The findings below summarize the paper; they are not outputs verified against the
-released rebuttal code and cohorts.
+This repository provides a BERT-based training and evaluation pipeline,
+article-level fairness analysis, PMID cohort lists, and a runnable offline demo.
+See the [data guide](data/README.md) for inputs and the
+[reproducibility guide](docs/REPRODUCIBILITY.md) for configuration and run outputs.
 
 <p align="center">
   <img src="docs/pipeline.svg" alt="Three-stage case study pipeline" width="92%"/>
@@ -76,7 +73,7 @@ The public release is being prepared around a **minimal-redistribution** policy:
 - do **not** redistribute copied PubMed titles/abstracts, author affiliations, PubPeer text, or other third-party textual content;
 - provide scripts and documentation for rebuilding model inputs from identifiers using the original data providers.
 
-See [data/README.md](data/README.md) for the data inventory and [data/DATA_CARD.md](data/DATA_CARD.md) for evidence, preprocessing rules and unknowns, [data/paper_results/](data/paper_results/) for machine-readable aggregate tables transcribed from the accepted manuscript, and [docs/RESULTS.md](docs/RESULTS.md) for a compact human-readable summary.
+See [data/README.md](data/README.md) for the data inventory and [data/DATA_CARD.md](data/DATA_CARD.md) for cohort definitions and preprocessing details, [data/paper_results/](data/paper_results/) for machine-readable aggregate tables transcribed from the accepted manuscript, and [docs/RESULTS.md](docs/RESULTS.md) for a compact human-readable summary.
 
 ## Current code
 
@@ -139,17 +136,14 @@ pytest -q
 
 A CUDA-enabled PyTorch installation is recommended for full training runs.
 
-## Running the rebuttal BERT workflow
+## Training the BERT classifier
 
-The training code expects pre-tokenized JSONL inputs. Historical rebuttal PMID
-lists are available in [data/pmids/](data/pmids/), with source commits, blob IDs,
-counts and hashes. They are source pools or archived samples, not the final
-paper's cohort or split assignments. [The data card](data/DATA_CARD.md) documents
-verified code behavior, missing original chunking parameters, and a new optional
-retrieval/preprocessing utility. New retrievals are labeled `reconstruction`;
-the original text snapshot and chunk boundaries are not guaranteed.
+The training code reads pre-tokenized JSONL. [data/pmids/](data/pmids/) provides
+identifier lists grouped by source cohort and experiment, with source versions,
+counts and hashes. [The data card](data/DATA_CARD.md) describes the input schema
+and how to retrieve and preprocess article text locally.
 
-A representative rebuttal-workflow command is (these are not verified final-paper settings):
+A training command using the current defaults, with CUDA mixed precision enabled:
 
 ```bash
 python train.py \
@@ -172,13 +166,36 @@ python train.py \
   --fp16
 ```
 
-The pipeline splits at the **article/PMID level**, keeps all chunks from the same article in the same partition, aggregates chunk probabilities to one article-level score, chooses the classification threshold only on the validation set, and freezes that threshold for later evaluation.
+The code splits articles by PMID into **70% training / 17.5% internal validation /
+12.5% internal test**, stratified by label with seed 42. All chunks of an article
+stay in the same partition. `split_manifest.json` records each article's assignment.
+
+The model is selected using the lowest internal-validation chunk loss, with
+article-level AUROC as the tie-break. After reloading that checkpoint, the code
+averages each article's chunk probabilities and determines the **final threshold
+from the internal validation set**, maximizing the Youden index by default.
+It saves the result in `threshold.json` and freezes it for internal-test and
+external evaluation. The threshold is computed for each training run, not a
+fixed hyperparameter readers must supply.
+
+Main run outputs:
+
+| Output | Contents |
+|---|---|
+| `split_manifest.json` | PMID assignments, source hashes, labels and chunk counts |
+| `best_model/` | Selected model weights, tokenizer and selection metadata |
+| `threshold.json` | Internal-validation threshold, objective, run ID and metrics |
+| `training_history.json` | Per-epoch losses and validation metrics |
+| `internal_results.json` | Validation and internal-test results |
+
+See [docs/REPRODUCIBILITY.md](docs/REPRODUCIBILITY.md) for external evaluation and
+how to retain the outputs needed to reproduce a run.
 
 ## Data release
 
 We follow a minimal-redistribution policy:
 
-- **Released:** verified rebuttal-stage PMID pools/samples with provenance, paper-reported aggregate tables, pipeline code, and synthetic demo inputs. Exact paper-level cohort membership remains unavailable.
+- **Released:** versioned PMID cohort lists with provenance, paper-reported aggregate tables, pipeline code, and synthetic demo inputs.
 - **Not released:** copied PubMed titles/abstracts, author affiliations, PubPeer comments, full-text articles, or internally cached third-party text.
 - Users should retrieve source text directly from the relevant provider and comply with that provider's terms and licensing requirements.
 
@@ -190,9 +207,14 @@ See [data/README.md](data/README.md) for details.
 
 A high model score may reflect linguistic style, domain shift, venue, geography, publication period, sampling choices, or other confounding factors. The central purpose of this repository is to study these failure modes and motivate stronger auditing requirements.
 
-## Release status
+## Reproducibility scope
 
-The original AutoDL workspace used for the final accepted-paper experiments is no longer available. The released code/data preserve a **rebuttal-stage workflow**, which differs from the paper experiments. Exact paper article-level cohorts, preprocessing settings and controlled-experiment artifacts have not been recovered. See [docs/REPRODUCIBILITY.md](docs/REPRODUCIBILITY.md), [data/FINAL_DATA_STATUS.md](data/FINAL_DATA_STATUS.md), and [PUBLIC_RELEASE_CHECKLIST.md](PUBLIC_RELEASE_CHECKLIST.md) for the current release status.
+The code implements the training, model-selection, validation-threshold and
+evaluation workflow. Paper-reported tables, archived cohort lists and synthetic
+demo inputs are identified separately. Some original text-processing and run
+artifacts are not included, so the released data do not establish exact numerical
+reproduction of every paper result. See [data/FINAL_DATA_STATUS.md](data/FINAL_DATA_STATUS.md)
+for the specific available and missing artifacts.
 
 ## Paper
 

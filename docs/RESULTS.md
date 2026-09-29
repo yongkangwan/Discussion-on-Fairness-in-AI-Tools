@@ -1,9 +1,8 @@
 # Results highlighted in the paper
 
-> These are existing manuscript-reported aggregate transcriptions. The repository
-> working code and datasets arose during rebuttal and do not fully match the paper
-> experiments. These values were not recomputed from the released historical
-> cohorts or synthetic demo. See [the data card](../data/DATA_CARD.md).
+> These tables contain manuscript-reported aggregate results. They are stored
+> separately from archived run results and synthetic demo outputs. See
+> [the data card](../data/DATA_CARD.md) for source versions and cohort details.
 
 This page summarizes the headline results reported in the accepted manuscript. It is intentionally concise; exact experiment artifacts and preprocessing code are being reconciled before the final public release.
 

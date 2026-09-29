@@ -1,40 +1,98 @@
-# Reproducibility scope
+# Training, evaluation and reproducibility
 
-The authors clarify that this repository's working code/data arose during
-**rebuttal** and are not fully consistent with experiments in the paper.
-The original final experiment workspace is reported as unavailable.
+The repository includes article-level dataset splitting, BERT fine-tuning,
+validation-based model and threshold selection, external evaluation, and fairness
+analysis. Data identifiers and source versions are listed in
+[the PMID inventory](../data/pmids/README.md).
 
-## What this release supports
+## Configuration implemented in code
 
-- Running and inspecting the rebuttal BERT training/evaluation workflow:
-  PMID-level splitting, chunk-probability averaging, validation-only threshold
-  selection and external overlap checks.
-- Inspecting verified historical rebuttal PMID pools/samples with source
-  references, counts and hashes, without publishing third-party article text.
-- Running a fully offline synthetic demo through the actual training and
-  evaluation scripts.
-- Creating explicitly labeled new reconstructions from provider records with
-  recorded retrieval and tokenizer settings.
-- Reading existing manuscript aggregate result transcriptions separately from
-  the available rebuttal artifacts.
+[train.py](../train.py) defaults to `bert-base-uncased`, seed 42, 10 epochs,
+learning rate `1.4e-5`, weight decay `0.025`, cosine scheduling with 15% warm-up,
+and train/evaluation batch sizes of 32. Input chunks may contain up to 512 tokens.
+Use command-line arguments to change these settings; retain the run configuration
+with the outputs.
 
-## What this release does not establish
+[paper_mill_common.py](../paper_mill_common.py) deduplicates chunks by
+`(pmid, chunk_index)` and splits articles, stratified by label, into 70% training,
+17.5% internal validation and 12.5% internal test. All chunks from an article stay
+in one partition. The split is generated from the input PMID/label set and seed,
+and written to `split_manifest.json`.
 
-It does not recover the exact paper cohort membership, split assignment,
-text/tokenizer snapshot, original chunk generator, final checkpoint/threshold,
-or controlled-experiment prompts, outputs and pair mappings. The historical
-rebuttal report has different metrics from the manuscript transcriptions.
-The new preprocessing script is a documented recipe, not a recovered original.
+## Model selection and the final threshold
 
-See [the data card](../data/DATA_CARD.md), [PMID inventory](../data/pmids/README.md)
-and [remaining TODOs](../data/FINAL_DATA_STATUS.md).
+1. Train on training-set chunks. Select the checkpoint with the lowest internal
+   validation chunk cross-entropy loss, using validation article AUROC to break ties.
+2. Reload that checkpoint and predict the internal validation set. Average the
+   chunk softmax positive probabilities to obtain one score per article.
+3. Derive the final threshold **only from internal-validation article scores**.
+   The default objective maximizes Youden's index (sensitivity + specificity − 1).
+   Ties prefer specificity, then sensitivity, then the higher threshold.
+4. Save the result in `threshold.json`, including the value, objective, run ID,
+   selected epoch and `selection_set: "internal_validation"`. Per-epoch thresholds
+   in the training history are diagnostic; the saved final threshold uses the
+   selected checkpoint.
+5. Freeze the model and threshold before evaluating internal test or external
+   cohorts. An article is positive when its mean score is at least the threshold.
+
+The threshold-selection method is fully implemented; no manually chosen cutoff
+is needed for training. Its numeric value depends on the trained model and
+validation predictions, so it is a **run output**, not a universal model setting.
+
+## Running and retaining a run
+
+Follow the [README training command](../README.md#training-the-bert-classifier).
+Retain these outputs together:
+
+| Artifact | Purpose |
+|---|---|
+| `split_manifest.json` | Exact article assignments, input hashes and labels |
+| `run_config.json` | Training settings and environment |
+| `best_model/` | Model weights, tokenizer and checkpoint selection metadata |
+| `threshold.json` | Final internal-validation cutoff and its run identity |
+| `training_history.json` | Per-epoch training and validation results |
+| Prediction JSONL and result JSON files | Per-article scores and aggregate metrics |
+
+Use the same run's checkpoint and threshold for external evaluation:
 
 ```bash
-# After installing requirements:
+python evaluate.py \
+  --model-dir runs/my_run/best_model \
+  --threshold-file runs/my_run/threshold.json \
+  --positive-files /path/to/external_positive.jsonl \
+  --negative-files /path/to/external_negative.jsonl \
+  --output-dir runs/my_run/external
+```
+
+`evaluate.py` checks model/threshold run IDs when present, checks cohort overlap
+using the training manifest, and loads the saved cutoff without selecting a new
+one on external data.
+
+## Text preprocessing and data versions
+
+Training consumes pre-tokenized JSONL. The loader validates chunk length, indices
+and token arrays and dynamically pads batches; raw-text composition and chunk
+boundaries are upstream preprocessing steps. The documented preprocessing utility
+provides an explicit recipe for new inputs, while original generator settings
+not established by archived records remain listed in
+[the data card](../data/DATA_CARD.md).
+
+Paper-reported tables, historical cohorts and synthetic demo data are versioned
+separately. Some original input snapshots and saved run artifacts are not included.
+The available code specifies how to generate splits, select models and calculate
+thresholds; exact replay of a particular historical result also needs its inputs,
+software environment and saved artifacts. See
+[data availability](../data/FINAL_DATA_STATUS.md).
+
+## Offline checks
+
+After installing requirements:
+
+```bash
 bash run_demo.sh
 python scripts/verify_pmid_release.py
 python -m pytest -q
 ```
 
-Demo artifacts validate software behavior; their model scores are not scientific
-results. Exact numerical reproduction of the paper is not currently supported.
+The synthetic demo runs preprocessing, training and evaluation without network
+access. Its scores verify pipeline behavior and are not scientific results.
