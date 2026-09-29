@@ -1,57 +1,57 @@
-# Data release policy
+# Data inventory and provenance
 
-This repository uses a **minimal-redistribution** data policy.
+**The repository's working code/data were produced during rebuttal and do not
+fully match the experiments in the paper.** We keep these evidence categories
+separate:
 
-## Included now
+| Location | Category | Scope |
+|---|---|---|
+| [`paper_results/`](paper_results/) | Paper-reported aggregate results | Existing manuscript transcriptions, not recomputed using this release |
+| [`pmids/historical/`](pmids/historical/) | Verified historical **rebuttal** data | PMID-only source pools and archived samples, not final-paper cohort assignments |
+| [`examples/`](examples/) | **Demo-only** | 32 synthetic articles; safe offline text-to-chunk-to-training/evaluation example |
+| `generated/` (ignored) | New reconstruction | Current provider text and newly configured preprocessing, stored locally |
 
-Paper-derived aggregate tables are available under `paper_results/`:
+Start with [DATA_CARD.md](DATA_CARD.md) for cohort meanings, source provenance,
+verified processing rules, unknown original chunking parameters, and reconstruction
+commands. [pmids/README.md](pmids/README.md) lists each recovered cohort with
+counts and explains verification. [FINAL_DATA_STATUS.md](FINAL_DATA_STATUS.md)
+tracks the remaining gaps.
 
-- `reproduction_metrics.csv`
-- `fairness_audit_summary.csv`
-- `controlled_experiments_summary.csv`
-- `paired_outcomes.csv`
+## Run the demo
 
-These summarize the results reported in the accepted manuscript.
-
-## Article-level public data
-
-The intended final article-level package will contain only identifiers and experiment metadata needed to reconstruct the cohorts:
-
-- PMIDs
-- split / cohort membership
-- benchmark labels or analysis-group labels
-- deterministic sampling metadata
-- hashes/manifests
-- controlled-experiment pair IDs, prompts/configuration, and model outputs where appropriate
-
-The exact final article-level files are **not yet included**, because the currently accessible repository artifacts do not match the accepted manuscript's headline values. See [FINAL_DATA_STATUS.md](FINAL_DATA_STATUS.md).
-
-## Not redistributed
-
-The public repository should not contain:
-
-- copied PubMed titles or abstracts
-- author affiliations copied from PubMed records
-- PubPeer comments or other PubPeer page text
-- full-text articles
-- internally cached third-party text
-
-Users should retrieve source text directly from the relevant provider and comply with the provider's current terms, licenses, and access policies.
-
-## Exporting PMIDs from a verified final working copy
-
-After the exact accepted-paper artifacts are located:
+After installing the top-level requirements, from the repository root:
 
 ```bash
-python scripts/export_pmids.py \
-  --input path/to/verified_final_cohort.jsonl \
-  --output data/pmids/cohort.txt
+bash run_demo.sh
+python scripts/verify_pmid_release.py
 ```
 
-The script reads only the `pmid` field, de-duplicates identifiers, and writes one PMID per line.
+The demo uses a tiny randomly initialized BERT and synthetic `DEMO-*` article
+identifiers. It does not reproduce paper results or rebuttal scientific results.
+See [examples/README.md](examples/README.md) for inputs, parameters and outputs.
 
-## Rebuilding model inputs
+## Export a newly recovered, verified source
 
-The training code consumes pre-tokenized JSONL. The final public release should include the exact preprocessing/tokenization code used for the accepted-paper experiments so that users can rebuild model inputs from the released identifiers.
+```bash
+python scripts/export_pmids.py --input /path/to/source.jsonl --output /path/to/cohort.txt
+python scripts/export_pmids.py --input /path/to/source.jsonl.manifest.json \
+  --input-format sampling-manifest --output /path/to/cohort.txt
+```
 
-Do not substitute an approximate preprocessing pipeline: tokenization and chunking choices affect reproducibility.
+Exports are unique numeric PMIDs, sorted numerically, one per line. Synthetic
+IDs are rejected. Exporting identifiers alone does not verify experimental role
+or final-paper membership: record source revision/blob, hashes, counts, labels,
+split evidence and provenance before adding a list to this release.
+
+## Minimal redistribution
+
+We publish identifiers, source/run metadata, derived aggregate tables, code and
+original synthetic examples. We do not republish source titles/abstracts, author
+affiliations, PubPeer text, full text, or historical token arrays (which may allow
+reconstruction of text). Retrieval utilities save provider records locally and
+mark them as new reconstructions; provider records may have changed since the
+historical experiments. A PMID match does not establish a text-version match.
+
+No final-paper PMID list, exact split, prompt configuration, checkpoint or
+controlled-experiment pair mapping is claimed to have been recovered. Do not
+rename historical rebuttal cohorts or demo outputs as paper data.

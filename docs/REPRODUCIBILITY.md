@@ -1,40 +1,40 @@
-# Reproducibility status
+# Reproducibility scope
 
-The original AutoDL instance used for the final accepted-paper experiments is no longer available.
+The authors clarify that this repository's working code/data arose during
+**rebuttal** and are not fully consistent with experiments in the paper.
+The original final experiment workspace is reported as unavailable.
 
-This repository therefore makes an explicit distinction between **methodological reproducibility** and **exact numerical reproducibility**.
+## What this release supports
 
-## What remains reproducible
+- Running and inspecting the rebuttal BERT training/evaluation workflow:
+  PMID-level splitting, chunk-probability averaging, validation-only threshold
+  selection and external overlap checks.
+- Inspecting verified historical rebuttal PMID pools/samples with source
+  references, counts and hashes, without publishing third-party article text.
+- Running a fully offline synthetic demo through the actual training and
+  evaluation scripts.
+- Creating explicitly labeled new reconstructions from provider records with
+  recorded retrieval and tokenizer settings.
+- Reading existing manuscript aggregate result transcriptions separately from
+  the available rebuttal artifacts.
 
-The following parts can still be documented and reproduced:
+## What this release does not establish
 
-- the BERT-based training and evaluation pipeline;
-- article-level splitting and chunk aggregation logic;
-- validation-only threshold selection;
-- external evaluation and overlap checking;
-- the paper's aggregate result tables;
-- the stated cohort-selection criteria;
-- the design of the four linguistic-style controlled experiments.
+It does not recover the exact paper cohort membership, split assignment,
+text/tokenizer snapshot, original chunk generator, final checkpoint/threshold,
+or controlled-experiment prompts, outputs and pair mappings. The historical
+rebuttal report has different metrics from the manuscript transcriptions.
+The new preprocessing script is a documented recipe, not a recovered original.
 
-## What is currently missing
+See [the data card](../data/DATA_CARD.md), [PMID inventory](../data/pmids/README.md)
+and [remaining TODOs](../data/FINAL_DATA_STATUS.md).
 
-The following exact accepted-paper artifacts have not been recovered:
+```bash
+# After installing requirements:
+bash run_demo.sh
+python scripts/verify_pmid_release.py
+python -m pytest -q
+```
 
-- final article-level PMID lists for the reported cohorts;
-- the exact final train/validation/test assignment used for the accepted-paper numbers;
-- per-sample outputs for the four controlled experiments;
-- the exact prompts and generation configuration used in the final controlled experiments;
-- the exact final preprocessing/tokenization artifacts;
-- the final trained checkpoint corresponding to the reported accepted-paper results.
-
-The older working data that previously existed in this repository produced different summary values and must not be represented as the exact accepted-paper data.
-
-## Consequence
-
-A reader can reproduce the **method and experimental design**, but should not expect a fresh run to reproduce the accepted paper's exact numeric tables unless the original final artifacts are recovered.
-
-If new cohorts are regenerated from the published criteria, they should be versioned and clearly labeled as a **post-acceptance reconstruction**.
-
-## Data-release principle
-
-The public release follows a minimal-redistribution policy: publish identifiers, cohort metadata, code, prompts/configuration where available, and derived aggregate tables; do not republish third-party article text.
+Demo artifacts validate software behavior; their model scores are not scientific
+results. Exact numerical reproduction of the paper is not currently supported.

@@ -7,33 +7,41 @@ This file is for release preparation and should be removed or converted into an 
 - [x] Add paper-derived aggregate tables under `data/paper_results/`.
 - [x] Document that final article-level PMIDs must come from the exact accepted-paper artifacts, not the older mismatched working data.
 
-## Current validation
+## Earlier validation (before the 2026-09-29 data additions)
 
 - [x] GitHub Actions CI is passing on the cleaned current tree.
-- [x] Current default-branch code search shows no old `/root/fuxian`, `D:\\pubmed`, or deleted raw-data filename references.
+- [x] Earlier cleanup removed private filesystem paths from runtime defaults. Historical filenames now appear intentionally in provenance documentation.
 
 ## Blocking items
 
 - [ ] Add the final, de-anonymized author list.
 - [ ] Add the paper-specific OpenReview/forum URL and final paper link.
 - [ ] Choose and add a code license.
-- [ ] Recover final accepted-paper PMID/cohort files from an independent backup, if one exists. If none can be recovered, keep the release explicitly methodological rather than claiming exact cohort reproduction.
+- [ ] Recover final accepted-paper PMID/cohort files from an independent backup, if one exists. If none can be recovered, keep the release explicitly rebuttal-stage rather than claiming paper cohort reproduction.
 - [ ] Add the **exact preprocessing/tokenization code** used to build the pre-tokenized JSONL inputs.
 - [ ] Recover or reconstruct from surviving records the code/prompts/configuration for the paper's four controlled LLM experiments, clearly labeling anything reconstructed after acceptance.
-- [ ] Reconcile the repository experiment report with the accepted manuscript.
+- [x] Record the author clarification that working code/data come from rebuttal and differ from the paper experiments; retain both provenance categories rather than editing values to match.
 
 ## Important result mismatch to resolve
 
-The current private repository's `EXPERIMENT_REPORT.md` does **not** match the final manuscript's reported values.
+The historical archive's `EXPERIMENT_REPORT.md` does **not** match the final manuscript's reported values.
 
 Examples:
 
-- Current repo report: China/Other screening mean scores are approximately 0.267 / 0.012.
+- Archived rebuttal report: China/Other screening mean scores are approximately 0.267 / 0.012.
 - Accepted manuscript: non-native/native high-impact groups are reported as 42.0% / 2.0%.
-- Current repo report: internal test accuracy is approximately 95.3%.
+- Archived rebuttal report: internal test accuracy is approximately 95.3%.
 - Accepted manuscript Table 1: reproduction internal accuracy is reported as 97%.
 
 Do not publish the old experiment report as the canonical result record until the exact final artifacts are identified.
+
+## 2026-09-29 data additions
+
+- [x] Recover 11 rebuttal-stage identifier lists with 22,562 distinct PMIDs.
+- [x] Match three sampled cohorts to both JSONL and sampling manifests; verify report hashes for the two audit lists.
+- [x] Add data card, provenance manifests, pairwise overlaps, recovery/verification scripts and author-confirmation TODOs.
+- [x] Add a runnable synthetic-only demo and explicit new preprocessing/retrieval utilities.
+- [x] Preserve manuscript aggregate CSVs unchanged and document the experiment 4 denominator discrepancy.
 
 ## Repository hygiene
 

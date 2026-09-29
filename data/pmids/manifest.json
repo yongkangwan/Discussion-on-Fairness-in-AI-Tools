@@ -1,0 +1,332 @@
+{
+  "schema_version": 1,
+  "updated": "2026-09-29",
+  "data_status": "verified-historical-rebuttal",
+  "paper_cohort_verified": false,
+  "author_clarification": "Repository working code and data were produced during rebuttal and do not fully match the paper experiments.",
+  "source_repository": "yongkangwan/Discussion-on-Fairness-in-AI-Tools-private-archive",
+  "source_commit": "c61fbf422a1f43e78a94b71cb1b8b28d7407d949",
+  "source_access": "private; not all evidence is publicly accessible",
+  "serialization": "unique numeric PMIDs sorted numerically, UTF-8, LF after every identifier",
+  "cohorts": [
+    {
+      "cohort_id": "internal_positive_pool",
+      "path": "historical/internal_positive_pool.txt",
+      "data_status": "verified-historical-rebuttal",
+      "paper_cohort_verified": false,
+      "role": "internal positive-role pool",
+      "role_label": 1,
+      "source_path": "positive_chunks.jsonl",
+      "source_git_blob_sha": "31f5b3fae8ae38500e429dc112e30134cedc65eb",
+      "source_bytes": 17782098,
+      "source_rows": 2518,
+      "unique_pmids": 2122,
+      "stored_row_label_counts": {
+        "1": 2518
+      },
+      "observed_token_length_min": 160,
+      "observed_token_length_max": 512,
+      "pmid_file_sha256": "c5e2225c45565d34e014fce6511b0a15787289f6ed583058347c80d0269850b1"
+    },
+    {
+      "cohort_id": "internal_negative_top_china",
+      "path": "historical/internal_negative_top_china.txt",
+      "data_status": "verified-historical-rebuttal",
+      "paper_cohort_verified": false,
+      "role": "internal negative-role source",
+      "role_label": 0,
+      "source_path": "top_china.jsonl",
+      "source_git_blob_sha": "8d51c8151590d95845835741a98ea0c5955189b8",
+      "source_bytes": 533352,
+      "source_rows": 100,
+      "unique_pmids": 100,
+      "stored_row_label_counts": {
+        "0": 100
+      },
+      "observed_token_length_min": 251,
+      "observed_token_length_max": 397,
+      "pmid_file_sha256": "c38330cce109514791d5e216e3585095837a6b9dd0cfded7998b1cf389a398b2"
+    },
+    {
+      "cohort_id": "internal_negative_top_other_train",
+      "path": "historical/internal_negative_top_other_train.txt",
+      "data_status": "verified-historical-rebuttal",
+      "paper_cohort_verified": false,
+      "role": "internal negative-role source",
+      "role_label": 0,
+      "source_path": "top_other_train.jsonl",
+      "source_git_blob_sha": "6a808f0042290d8ed35378633e2ce33b6d533608",
+      "source_bytes": 11566430,
+      "source_rows": 1683,
+      "unique_pmids": 1400,
+      "stored_row_label_counts": {
+        "0": 1683
+      },
+      "observed_token_length_min": 151,
+      "observed_token_length_max": 512,
+      "pmid_file_sha256": "f819fd0dcf49ee2484d85f1cbf43769f4d073130e96cfde0d1abfcd8291c3fb1"
+    },
+    {
+      "cohort_id": "internal_negative_top_taiwan",
+      "path": "historical/internal_negative_top_taiwan.txt",
+      "data_status": "verified-historical-rebuttal",
+      "paper_cohort_verified": false,
+      "role": "internal negative-role source",
+      "role_label": 0,
+      "source_path": "top_taiwan.jsonl",
+      "source_git_blob_sha": "eb64085122501060bc9770913b95ec0dd6781c7f",
+      "source_bytes": 4526242,
+      "source_rows": 668,
+      "unique_pmids": 600,
+      "stored_row_label_counts": {
+        "0": 668
+      },
+      "observed_token_length_min": 155,
+      "observed_token_length_max": 512,
+      "pmid_file_sha256": "fc4c7027d044143eb9d4aa303b9a095be7cfa99d51e7cc2fd291294f91fc92a5"
+    },
+    {
+      "cohort_id": "external_positive_pubpeer",
+      "path": "historical/external_positive_pubpeer.txt",
+      "data_status": "verified-historical-rebuttal",
+      "paper_cohort_verified": false,
+      "role": "external positive-role source",
+      "role_label": 1,
+      "source_path": "positive_chunks_dedup_pubpeer.jsonl",
+      "source_git_blob_sha": "04e5df319cf7695da3f0904020b09a198b47b3da",
+      "source_bytes": 20509561,
+      "source_rows": 3961,
+      "unique_pmids": 3290,
+      "stored_row_label_counts": {
+        "0": 3961
+      },
+      "observed_token_length_min": 150,
+      "observed_token_length_max": 512,
+      "pmid_file_sha256": "865fdea45a82a0a433c84fa1275886d8706212f2e0c4ed24f867d1e0920f9db2"
+    },
+    {
+      "cohort_id": "external_negative_raw",
+      "path": "historical/external_negative_raw.txt",
+      "data_status": "verified-historical-rebuttal",
+      "paper_cohort_verified": false,
+      "role": "raw external negative-role source",
+      "role_label": 0,
+      "source_path": "top_other_prove.jsonl",
+      "source_git_blob_sha": "d344066849b6de0618b1e55a4481bae5e43c8eef",
+      "source_bytes": 24680629,
+      "source_rows": 3612,
+      "unique_pmids": 2999,
+      "stored_row_label_counts": {
+        "0": 3612
+      },
+      "observed_token_length_min": 147,
+      "observed_token_length_max": 512,
+      "pmid_file_sha256": "f75549731eca265a56f50f24edf0b1f848e98064b26ae4e67cecfc1096341a99"
+    },
+    {
+      "cohort_id": "external_negative_clean",
+      "path": "historical/external_negative_clean.txt",
+      "data_status": "verified-historical-rebuttal",
+      "paper_cohort_verified": false,
+      "role": "external negative after internal-pool exclusion",
+      "role_label": 0,
+      "source_path": "derived/top_other_prove_clean.jsonl",
+      "source_git_blob_sha": "63ea575df263109fdb7f721d17cb5ffdf16f20f2",
+      "source_bytes": 16825663,
+      "source_rows": 3599,
+      "unique_pmids": 2987,
+      "stored_row_label_counts": {
+        "0": 3599
+      },
+      "observed_token_length_min": 147,
+      "observed_token_length_max": 512,
+      "pmid_file_sha256": "7183777fde3453d63f024c4b50f449c05695d4691a1dcbd110dd5d004b856101",
+      "sampling_evidence": {
+        "source_path": "derived/top_other_prove_clean.jsonl.manifest.json",
+        "source_git_blob_sha": "21cdfa1371525ecff691d70b9e2cbb985b11e4c7",
+        "selected_pmids_and_chunk_counts_match_source_blob": true,
+        "seed": 42,
+        "sampling_algorithm": "first N by sha256(f'{seed}\\0{pmid}'), PMID tie-break",
+        "input_articles": 2999,
+        "excluded_input_articles": 12,
+        "eligible_articles": 2987,
+        "sampled_chunks": 3599,
+        "input_source_path": "top_other_prove.jsonl",
+        "input_sha256": "8608bd4e9a0a0df03d9867bf24b45bb4fe21b3706995d295ffec681e2d03bc19",
+        "output_sha256_recorded": "a24274b0c6986f0dc0c5fdb8f5bbb8bea39397c8e249456d86922a53434cc0c2",
+        "exclusion_sources": [
+          {
+            "path": "split_manifest.json",
+            "sha256": "41d4c22899661b1ab4f2aba19a88205857caa7974757755f2c711e8e21367d8d",
+            "kind": "manifest",
+            "n_unique_pmids": 4218
+          }
+        ]
+      }
+    },
+    {
+      "cohort_id": "audit_china_candidate_pool",
+      "path": "historical/audit_china_candidate_pool.txt",
+      "data_status": "verified-historical-rebuttal",
+      "paper_cohort_verified": false,
+      "role": "candidate audit source pool",
+      "role_label": 0,
+      "source_path": "china_8000.jsonl",
+      "source_git_blob_sha": "660f9e957f83e76bcbc4cb63cdce8ee592b7edb8",
+      "source_bytes": 61042100,
+      "source_rows": 9015,
+      "unique_pmids": 8000,
+      "stored_row_label_counts": {
+        "0": 9015
+      },
+      "observed_token_length_min": 155,
+      "observed_token_length_max": 512,
+      "pmid_file_sha256": "f080bfeea2bc04755de93529922e201178785ba606121d03dae3bb68c9a09a65"
+    },
+    {
+      "cohort_id": "audit_china_5000",
+      "path": "historical/audit_china_5000.txt",
+      "data_status": "verified-historical-rebuttal",
+      "paper_cohort_verified": false,
+      "role": "historical sampled audit cohort",
+      "role_label": 0,
+      "source_path": "derived/china_5000.jsonl",
+      "source_git_blob_sha": "54a3730407f39cc7aee2da951073c41e8dc73370",
+      "source_bytes": 26784098,
+      "source_rows": 5656,
+      "unique_pmids": 5000,
+      "stored_row_label_counts": {
+        "0": 5656
+      },
+      "observed_token_length_min": 156,
+      "observed_token_length_max": 512,
+      "pmid_file_sha256": "8b4b95e1edc24c9786fc4596365cdd60ff6a6a709664513b6bcbbc9c4b01bbae",
+      "sampling_evidence": {
+        "source_path": "derived/china_5000.jsonl.manifest.json",
+        "source_git_blob_sha": "5a47a777c1b3dfe2df87c1e37e181c8c045eded0",
+        "selected_pmids_and_chunk_counts_match_source_blob": true,
+        "seed": 42,
+        "sampling_algorithm": "first N by sha256(f'{seed}\\0{pmid}'), PMID tie-break",
+        "input_articles": 8000,
+        "excluded_input_articles": 259,
+        "eligible_articles": 7741,
+        "sampled_chunks": 5656,
+        "input_source_path": "china_8000.jsonl",
+        "input_sha256": "80b95bbf4d7e4369fdcdf1d88e30424b33447e0c95a1cc0bdce11e19570a02b8",
+        "output_sha256_recorded": "344bbf9193a2fee8d6951b414fab2d0303f0fadd3062aed89357eb71fa29cccd",
+        "exclusion_sources": [
+          {
+            "path": "positive_chunks_dedup_pubpeer.jsonl",
+            "sha256": "eaaa5bc2f42fa85a1458603f66f46941566b9c859fad57d0a5c3c07f60a18ee6",
+            "kind": "jsonl",
+            "n_unique_pmids": 3290
+          },
+          {
+            "path": "other_20000.jsonl",
+            "sha256": "391e47356bb9e08eaecd20da3e5c6659e42563c6a4dbcc389ec17327bf4703a0",
+            "kind": "jsonl",
+            "n_unique_pmids": 20000
+          },
+          {
+            "path": "split_manifest.json",
+            "sha256": "41d4c22899661b1ab4f2aba19a88205857caa7974757755f2c711e8e21367d8d",
+            "kind": "manifest",
+            "n_unique_pmids": 4218
+          }
+        ]
+      }
+    },
+    {
+      "cohort_id": "audit_other_5000",
+      "path": "historical/audit_other_5000.txt",
+      "data_status": "verified-historical-rebuttal",
+      "paper_cohort_verified": false,
+      "role": "historical sampled audit cohort",
+      "role_label": 0,
+      "source_path": "derived/other_5000.jsonl",
+      "source_git_blob_sha": "4abcbef282b1d7970ef6e366266c4f8d23568b75",
+      "source_bytes": 27192965,
+      "source_rows": 5695,
+      "unique_pmids": 5000,
+      "stored_row_label_counts": {
+        "0": 5695
+      },
+      "observed_token_length_min": 149,
+      "observed_token_length_max": 512,
+      "pmid_file_sha256": "99afb11cfe745deea9ebab86c6140492317821a465f4eb3ae32401ec969dce18",
+      "sampling_evidence": {
+        "source_path": "derived/other_5000.jsonl.manifest.json",
+        "source_git_blob_sha": "41a49ee62ea201f327e5d6196652fe955e109b12",
+        "selected_pmids_and_chunk_counts_match_source_blob": true,
+        "seed": 42,
+        "sampling_algorithm": "first N by sha256(f'{seed}\\0{pmid}'), PMID tie-break",
+        "input_articles": 20000,
+        "excluded_input_articles": 1551,
+        "eligible_articles": 18449,
+        "sampled_chunks": 5695,
+        "input_source_path": "other_20000.jsonl",
+        "input_sha256": "391e47356bb9e08eaecd20da3e5c6659e42563c6a4dbcc389ec17327bf4703a0",
+        "output_sha256_recorded": "75e7080aa53da5ab592c8f1a3223f573e7df1ac0ade47628c6d7b6d3b39e0a38",
+        "exclusion_sources": [
+          {
+            "path": "positive_chunks_dedup_pubpeer.jsonl",
+            "sha256": "eaaa5bc2f42fa85a1458603f66f46941566b9c859fad57d0a5c3c07f60a18ee6",
+            "kind": "jsonl",
+            "n_unique_pmids": 3290
+          },
+          {
+            "path": "china_8000.jsonl",
+            "sha256": "80b95bbf4d7e4369fdcdf1d88e30424b33447e0c95a1cc0bdce11e19570a02b8",
+            "kind": "jsonl",
+            "n_unique_pmids": 8000
+          },
+          {
+            "path": "split_manifest.json",
+            "sha256": "41d4c22899661b1ab4f2aba19a88205857caa7974757755f2c711e8e21367d8d",
+            "kind": "manifest",
+            "n_unique_pmids": 4218
+          }
+        ]
+      }
+    },
+    {
+      "cohort_id": "additional_positive_china",
+      "path": "historical/additional_positive_china.txt",
+      "data_status": "verified-historical-rebuttal",
+      "paper_cohort_verified": false,
+      "role": "additional source; experimental use not established",
+      "role_label": null,
+      "source_path": "positive_chunks_china.jsonl",
+      "source_git_blob_sha": "6b4126d8b82fbd7ecc8dfda9f59f093f214110d0",
+      "source_bytes": 17076740,
+      "source_rows": 2412,
+      "unique_pmids": 2027,
+      "stored_row_label_counts": {
+        "1": 2412
+      },
+      "observed_token_length_min": 160,
+      "observed_token_length_max": 512,
+      "pmid_file_sha256": "3633c50422bd0b2a3b3431250f19d40758de13abebf7bfc4e149a3309c911f8b"
+    }
+  ],
+  "checks": {
+    "internal_unique_articles": 4218,
+    "external_raw_internal_overlap": 12,
+    "clean_equals_raw_minus_internal": true,
+    "audit_group_overlap": 0,
+    "audit_china_internal_overlap": 0,
+    "audit_other_internal_overlap": 0,
+    "audit_china_external_positive_overlap": 0,
+    "audit_other_external_positive_overlap": 0,
+    "audit_other_external_negative_overlap": 800
+  },
+  "distinct_pmids_across_all_lists": 22562,
+  "historical_report": {
+    "source_path": "EXPERIMENT_REPORT.md",
+    "source_git_blob_sha": "4539115bd131aabc242e0c0a08dc31667215569b",
+    "reported_run_date": "2026-07-27",
+    "audit_china_mean_score": 0.266995,
+    "audit_other_mean_score": 0.012326,
+    "relationship_to_paper": "rebuttal historical run; not the paper run"
+  }
+}

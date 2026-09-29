@@ -1,76 +1,64 @@
-# Final data package status
+# Final paper data and rebuttal archive status
 
-This file records what has been verified for the public release and what is still missing.
+Updated 2026-09-29. **Author clarification: this repository's working artifacts
+were produced during rebuttal and are not fully consistent with the paper's
+experiments.** Recovery of an old repository file establishes rebuttal provenance,
+not final-paper provenance.
 
-## Verified and included
+## Available now
 
-The repository now includes **paper-level aggregate result tables** transcribed from the accepted manuscript:
+- `paper_results/`: four existing aggregate result tables described in the earlier
+  release as manuscript transcriptions. Preserved unchanged; not regenerated with
+  the available rebuttal code/data or independently checked against a manuscript
+  during this audit.
+- `pmids/historical/`: identifier-only exports from verifiable old archive blobs
+  and sampling manifests, with source commit/blob IDs, counts and SHA-256 checks.
+- `DATA_CARD.md`: observed schema, verified loader/splitting/sampling/aggregation
+  logic, uncertain original preprocessing settings and explicit provenance levels.
+- `examples/` and `run_demo.sh`: synthetic-only inputs and an offline end-to-end
+  training/evaluation demonstration. No real-paper text or model is required.
+- Explicit new retrieval/preprocessing utilities that mark outputs as
+  `reconstruction` or `demo-only` and record hashes and configuration.
 
-- `paper_results/reproduction_metrics.csv`
-- `paper_results/fairness_audit_summary.csv`
-- `paper_results/controlled_experiments_summary.csv`
-- `paper_results/paired_outcomes.csv`
+## Recovery performed
 
-These are small, derived tables and do not redistribute third-party article text.
+Inspected both repositories' main trees at
+`401799b59bb91874b0e0dab2908b32d3de9bf360`, their available commit history, and the
+archive's old PR #1 references. Its old base
+`c61fbf422a1f43e78a94b71cb1b8b28d7407d949` exposes source JSONL and three sampled
+cohort manifests even though those artifacts are absent from current main.
+See [pmids/README.md](pmids/README.md) and [DATA_CARD.md](DATA_CARD.md) for exact
+scope and evidence. No old commits were merged into the target repository.
 
-## Final article-level cohort files are currently unavailable
+The old report's audit means are 0.266995 and 0.012326, unlike the manuscript
+transcriptions' 0.42 and 0.02. We therefore explicitly publish these as rebuttal
+historical cohorts. Matching the 5,000-per-group sample sizes cannot resolve the
+provenance difference.
 
-The accepted manuscript refers to article-level cohorts for:
+## Still not recovered / author confirmation needed
 
-1. reproduction / validation;
-2. the 5,000 non-native-English-proxy high-impact papers;
-3. the 5,000 native-English-proxy high-impact papers;
-4. source papers used for controlled rewriting experiments.
+1. Exact paper-used cohorts, labels, exclusions and train/validation/test
+   assignments, together with evidence connecting them to manuscript tables.
+2. Original text snapshots and acquisition dates; query strings, journal lists,
+   inclusion/exclusion rules, and language/geography proxy construction.
+3. Original text composition and chunk generator: tokenizer revision, prefix
+   handling, special tokens, stride/overlap, normalization, tail and padding rules.
+4. Paper-run checkpoint, frozen threshold, environment and per-article outputs.
+5. Controlled experiments' prompts, generation configuration, source PMIDs where
+   applicable, sample/pair IDs, outputs and exclusion log. Experiment 4's summary
+   says 3,000 per style while its paired table totals 2,999; do not invent the
+   missing pair or alter the published transcription without confirmation.
+6. Historical raw `other_20000.jsonl` and original `split_manifest.json`, needed
+   to fully replay the archived sampling eligibility and exact internal split.
 
-The current GitHub repository does **not** contain a verified final artifact set that can be tied to the accepted manuscript's headline numbers. The old private working artifacts previously stored in this repository produced different summary values and therefore must not be released as the final paper data.
+Earlier repository documentation records that the final AutoDL workspace is no
+longer available. Independent author/collaborator backups would be needed to
+resolve these gaps. No new broad backup search is claimed here.
 
-The AutoDL instance that contained the final experiment workspace is no longer available. Searches of the currently accessible project files and connected sources found the manuscript, but no separate final cohort files, prompt/config files, or controlled-experiment artifacts matching the accepted-paper numbers. Unless an independent backup is recovered from a collaborator, local machine, cloud drive, email attachment, or other archive, exact article-level reproduction of the accepted-paper numbers is not currently possible.
+## Release rule
 
-## What can still be released responsibly
-
-Do **not** reconstruct or guess the exact accepted-paper cohorts from the aggregate numbers. If the exact final files are recovered later, export only:
-
-### `reproduction_cohorts.csv`
-
-Recommended columns:
-
-```text
-pmid,split,benchmark_label,source_cohort
-```
-
-### `fairness_audit_cohorts.csv`
-
-Recommended columns:
-
-```text
-pmid,analysis_group,sample_id
-```
-
-where `analysis_group` should use transparent proxy labels such as
-`non_native_english_proxy` and `native_english_proxy`.
-
-### Controlled experiments
-
-For generated experiments, release:
-
-```text
-experiment,sample_id,pair_id,style,score,prediction
-```
-
-plus the exact prompts and generation configuration used in the accepted paper.
-
-For experiments derived from real papers, prefer releasing identifiers, pair mappings, prompts/configuration, and model outputs rather than redistributing source article text unless redistribution rights have been checked.
-
-## Integrity rule
-
-Do not populate the article-level files by reverse-engineering or approximating the manuscript's aggregate statistics. They must come from the exact final artifacts used to produce the accepted paper.
-
-
-## Reproducibility scope
-
-Until the exact final artifacts are recovered, this repository should distinguish two levels of reproducibility:
-
-- **Methodological reproducibility:** supported. The repository can provide model code, evaluation code, cohort-selection criteria, prompts/configuration (when reconstructed from surviving records), and aggregate tables from the manuscript.
-- **Exact numerical reproducibility of the accepted-paper runs:** not currently supported, because the final article-level cohort files and controlled-experiment outputs are unavailable.
-
-Any future regenerated cohorts should be labeled as a **new reconstruction**, not as the exact data used for the accepted manuscript.
+Keep **paper-reported aggregate data**, **verified historical rebuttal data**,
+**demo-only data**, and **new reconstructions** distinct. Do not reverse-engineer
+article membership from aggregate statistics, or infer original chunking from
+plausible BERT defaults. A regenerated run should receive a new run ID and should
+not be described as the paper's original experiment.

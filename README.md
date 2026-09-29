@@ -20,7 +20,13 @@
 
 We support this position with a case study of a BERT-based paper-mill detector. The paper shows that strong aggregate benchmark performance can coexist with large linguistic-group disparities: legitimate non-native-English papers from high-impact journals receive a mean predicted paper-mill probability of **42.0%**, compared with **2.0%** for native-English papers. Controlled LLM-based rewriting experiments further show that changing writing style alone can alter model decisions even when content is held fixed.
 
-This repository contains code and release materials for reproducing the case study and auditing the resulting model.
+**Repository provenance:** The code and working datasets in this repository were
+produced during the **rebuttal stage**. They are not fully consistent with the
+experiments reported in the paper. This release preserves that rebuttal workflow,
+verified historical PMID lists, and a runnable synthetic demo. It does **not**
+provide an exact implementation/data package for reproducing the paper's numbers.
+The findings below summarize the paper; they are not outputs verified against the
+released rebuttal code and cohorts.
 
 <p align="center">
   <img src="docs/pipeline.svg" alt="Three-stage case study pipeline" width="92%"/>
@@ -70,7 +76,7 @@ The public release is being prepared around a **minimal-redistribution** policy:
 - do **not** redistribute copied PubMed titles/abstracts, author affiliations, PubPeer text, or other third-party textual content;
 - provide scripts and documentation for rebuilding model inputs from identifiers using the original data providers.
 
-See [data/README.md](data/README.md) for the data-release policy, [data/paper_results/](data/paper_results/) for machine-readable aggregate tables transcribed from the accepted manuscript, and [docs/RESULTS.md](docs/RESULTS.md) for a compact human-readable summary.
+See [data/README.md](data/README.md) for the data inventory and [data/DATA_CARD.md](data/DATA_CARD.md) for evidence, preprocessing rules and unknowns, [data/paper_results/](data/paper_results/) for machine-readable aggregate tables transcribed from the accepted manuscript, and [docs/RESULTS.md](docs/RESULTS.md) for a compact human-readable summary.
 
 ## Current code
 
@@ -82,7 +88,26 @@ The current repository contains the following core components:
 - `analyze_predictions.py` — article-level summary statistics and bootstrap comparisons.
 - `paper_mill_common.py` — shared loading, splitting, aggregation, metrics, and reproducibility utilities.
 - `scripts/export_pmids.py` — export de-duplicated PMID lists from internal JSONL files without redistributing article text.
-- `tests/` — unit and end-to-end smoke tests for the reproduction pipeline.
+- `scripts/fetch_pubmed.py` / `scripts/preprocess_articles.py` — explicit new reconstructions with provenance manifests.
+- `scripts/verify_pmid_release.py` / `scripts/recover_historical_pmids.py` — validate exported identifiers and re-export pinned archive sources.
+- `run_demo.sh` — synthetic, offline text-to-chunk-to-training/evaluation demo.
+- `tests/` — unit and end-to-end smoke tests for the available workflow.
+
+## Run the offline demo
+
+After installation:
+
+```bash
+bash run_demo.sh
+```
+
+This trains a tiny, randomly initialized local BERT on 24 synthetic articles and
+evaluates 8 disjoint synthetic articles using the actual training/evaluation
+scripts. It exercises text preprocessing, overlapping chunks, article-level
+splitting, validation threshold selection and article aggregation without network
+access. Results go to `runs/demo/`; use a fresh `--output-dir` for another run.
+See [data/examples/README.md](data/examples/README.md). **Demo-only: no paper
+experiment or scientific performance claim is reproduced.**
 
 ## Quick check
 
@@ -114,11 +139,17 @@ pytest -q
 
 A CUDA-enabled PyTorch installation is recommended for full training runs.
 
-## Reproducing the BERT baseline
+## Running the rebuttal BERT workflow
 
-The training code expects pre-tokenized JSONL inputs. The public release will not redistribute source abstracts; model inputs should be rebuilt from released identifiers and source-provider data.
+The training code expects pre-tokenized JSONL inputs. Historical rebuttal PMID
+lists are available in [data/pmids/](data/pmids/), with source commits, blob IDs,
+counts and hashes. They are source pools or archived samples, not the final
+paper's cohort or split assignments. [The data card](data/DATA_CARD.md) documents
+verified code behavior, missing original chunking parameters, and a new optional
+retrieval/preprocessing utility. New retrievals are labeled `reconstruction`;
+the original text snapshot and chunk boundaries are not guaranteed.
 
-A representative training command is:
+A representative rebuttal-workflow command is (these are not verified final-paper settings):
 
 ```bash
 python train.py \
@@ -147,7 +178,7 @@ The pipeline splits at the **article/PMID level**, keeps all chunks from the sam
 
 We follow a minimal-redistribution policy:
 
-- **Released:** PMIDs, cohort membership, experimental roles/labels, hashes/manifests, and code needed for reproduction.
+- **Released:** verified rebuttal-stage PMID pools/samples with provenance, paper-reported aggregate tables, pipeline code, and synthetic demo inputs. Exact paper-level cohort membership remains unavailable.
 - **Not released:** copied PubMed titles/abstracts, author affiliations, PubPeer comments, full-text articles, or internally cached third-party text.
 - Users should retrieve source text directly from the relevant provider and comply with that provider's terms and licensing requirements.
 
@@ -161,7 +192,7 @@ A high model score may reflect linguistic style, domain shift, venue, geography,
 
 ## Release status
 
-The original AutoDL workspace used for the final accepted-paper experiments is no longer available. The repository supports **methodological reproduction**, but the exact article-level cohorts and final controlled-experiment artifacts used for the accepted-paper numbers have not been recovered. See [docs/REPRODUCIBILITY.md](docs/REPRODUCIBILITY.md), [data/FINAL_DATA_STATUS.md](data/FINAL_DATA_STATUS.md), and [PUBLIC_RELEASE_CHECKLIST.md](PUBLIC_RELEASE_CHECKLIST.md) for the current release status.
+The original AutoDL workspace used for the final accepted-paper experiments is no longer available. The released code/data preserve a **rebuttal-stage workflow**, which differs from the paper experiments. Exact paper article-level cohorts, preprocessing settings and controlled-experiment artifacts have not been recovered. See [docs/REPRODUCIBILITY.md](docs/REPRODUCIBILITY.md), [data/FINAL_DATA_STATUS.md](data/FINAL_DATA_STATUS.md), and [PUBLIC_RELEASE_CHECKLIST.md](PUBLIC_RELEASE_CHECKLIST.md) for the current release status.
 
 ## Paper
 
