@@ -9,18 +9,24 @@ from pathlib import Path
 
 
 def chunk_ids(ids, tokenizer, max_length, overlap):
-    """Single-sequence windows; overlap counts content tokens, excluding specials."""
-    capacity = max_length - tokenizer.num_special_tokens_to_add(pair=False)
+    """Explicit BERT [CLS] content [SEP] windows; overlap excludes specials."""
+    from transformers import BertTokenizer, BertTokenizerFast
+    if not isinstance(tokenizer, (BertTokenizer, BertTokenizerFast)):
+        raise ValueError('This new recipe supports BERT tokenizers only')
+    if (tokenizer.cls_token_id is None or tokenizer.sep_token_id is None
+            or tokenizer.num_special_tokens_to_add(pair=False) != 2):
+        raise ValueError('Require a BERT tokenizer with CLS/SEP and two special tokens')
+    capacity = max_length - 2
     if capacity < 1 or not 0 <= overlap < capacity:
         raise ValueError('Require max_length > special-token count and 0 <= overlap < capacity')
     start = 0
     while start < len(ids):
         window = ids[start:start + capacity]
-        encoded = tokenizer.prepare_for_model(
-            window, add_special_tokens=True, truncation=False,
-            return_attention_mask=True, return_token_type_ids=True,
-        )
-        yield dict(encoded)
+        # Explicit BERT single-sequence format, compatible with Transformers 4/5.
+        # prepare_for_model was removed in Transformers 5.
+        input_ids = [tokenizer.cls_token_id, *window, tokenizer.sep_token_id]
+        yield dict(input_ids=input_ids, attention_mask=[1] * len(input_ids),
+                   token_type_ids=[0] * len(input_ids))
         if start + capacity >= len(ids):
             break
         start += capacity - overlap
@@ -69,7 +75,7 @@ def preprocess(input_path, output_path, tokenizer_path, max_length, overlap, sta
     output_path.write_text(''.join(json.dumps(r) + '\n' for r in output), encoding='utf-8')
     digest = lambda p: hashlib.sha256(p.read_bytes()).hexdigest()
     manifest = dict(
-        schema_version=1, data_status=status, recipe='explicit-single-sequence-v1',
+        schema_version=1, data_status=status, recipe='explicit-bert-single-sequence-v1',
         paper_preprocessing=False, input_sha256=digest(input_path),
         output_sha256=digest(output_path), articles=len(seen), chunks=len(output),
         text_composition='title.strip() + two newlines + abstract.strip()',

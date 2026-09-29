@@ -172,10 +172,12 @@ python scripts/preprocess_articles.py \
 ```
 
 There are deliberately no default values for maximum length or overlap here.
-This utility always uses the documented new single-sequence recipe: stripped
+This utility supports BERT tokenizers only and uses the documented new
+single-sequence recipe: stripped
 title, two newlines, stripped abstract; no added textual prefixes; tokenize
-without specials; content capacity = maximum length minus the tokenizer's number
-of special tokens; step = capacity minus overlap; wrap each window in specials;
+without specials; content capacity = maximum length minus two; step = capacity minus overlap;
+wrap each window with the local tokenizer's `[CLS]` and `[SEP]` IDs, with all-zero
+token types;
 retain the short last window; no saved padding. It records parameters, package
 version and local tokenizer file hashes. It **cannot reproduce unknown original
 chunk boundaries**. It accepts only `reconstruction` or `demo-only`, never a
