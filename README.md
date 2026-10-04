@@ -232,4 +232,8 @@ Citation metadata will be added after the public NeurIPS/OpenReview record is av
 
 ## License
 
-A code license has not yet been selected. Third-party data remain subject to their original providers' terms and are not relicensed by this repository.
+The project code and accompanying documentation are released under the
+[MIT License](LICENSE), permitting use, modification, redistribution and commercial
+use with preservation of the copyright and license notice. Third-party data,
+model weights and dependencies remain subject to their original licenses and
+terms and are not relicensed by this repository.

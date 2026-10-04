@@ -18,7 +18,7 @@ Updated: 2026-10-04.
 
 ## Publication metadata
 
-- [ ] Select and add a code license.
+- [x] Add the MIT License for project code and accompanying documentation.
 - [ ] Add authors, the public paper link and citation metadata when appropriate.
 
 ## Further reproducibility artifacts
