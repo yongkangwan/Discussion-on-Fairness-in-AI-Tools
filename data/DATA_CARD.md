@@ -66,10 +66,12 @@ geographic/linguistic assignment criteria, positive-label adjudication and exact
 cohort construction before tokenization remain unverified.
 
 Controlled experiments 1–2 concern generated text, for which a PMID need not
-exist. The author-supplied [shared-scenario prompt design](../prompts/README.md)
-is available, with a target of 3,000 A/B pairs and scientific content held fixed
-by instruction. It is not a verified historical request or a released generated
-dataset. The author identifies OpenAI as the generation provider and describes
+exist. The author-supplied [generation prompt designs](../prompts/README.md)
+are available: free-form generation requests 3,000 articles per style without
+requiring matched scientific content; shared-scenario generation requests 3,000
+A/B pairs with scientific content held fixed by instruction. These designs are
+not verified historical requests or released generated datasets. The author
+identifies OpenAI as the generation provider and describes
 the model as the latest available on 2026-04-02; the [model note](../prompts/README.md#generation-model)
 maps this to GPT-5.4 under a latest-flagship interpretation, with the exact
 variant/snapshot unspecified. Experiments 3–4 need recovered source-PMID/pair/style mappings, prompts,
@@ -234,8 +236,9 @@ or upstream preprocessing records**, rather than unspecified training methods:
   environment. Fresh training produces these artifacts, including a newly
   calculated internal-validation threshold.
 - Exact historical controlled-experiment requests, generation settings,
-  source/pair mappings and outputs; prompts for experiments 1, 3 and 4;
-  the inclusion record explaining experiment 4's denominator. The shared-scenario
-  design in `prompts/` documents the supplied methodology but not those run records.
+  source/pair mappings and outputs; prompts for experiments 3 and 4;
+  the inclusion record explaining experiment 4's denominator. The free-form and
+  shared-scenario designs in `prompts/` document the supplied methodology but not
+  those run records.
 
 See [FINAL_DATA_STATUS.md](FINAL_DATA_STATUS.md) for the availability summary.

@@ -28,9 +28,9 @@ The large prediction gap motivates the controlled experiments that follow.
 
 ## Controlled style experiments
 
-The [shared-scenario prompt and guide](../prompts/README.md) describe the
-author-supplied generation design and paired-data checks. The prompt has not
-been linked to an original generation log; the table below remains a
+The [generation prompts and guide](../prompts/README.md) describe the
+author-supplied free-form and shared-scenario designs and their data checks.
+The prompts have not been linked to original generation logs; the table below remains a
 transcription of paper-reported results.
 
 Across four LLM-based experiments, non-native-English style consistently receives a higher positive rate than native-English style.

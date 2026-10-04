@@ -17,9 +17,10 @@ counts and explains verification. [FINAL_DATA_STATUS.md](FINAL_DATA_STATUS.md)
 tracks the remaining gaps.
 
 The [controlled-generation prompt guide](../prompts/README.md) documents the
-author-supplied design for 3,000 synthetic A/B pairs describing shared research
-scenarios. It provides the requested schema and review guidance; generated data
-and original generation settings are not included. These pairs are intended for
+author-supplied free-form design (3,000 articles per style) and shared-scenario
+design (3,000 matched A/B pairs). It provides the requested schemas and review
+guidance; generated data and original generation settings are not included.
+These synthetic datasets are intended for
 bias evaluation, separate from the model's internal threshold-selection set.
 
 ## Run the demo

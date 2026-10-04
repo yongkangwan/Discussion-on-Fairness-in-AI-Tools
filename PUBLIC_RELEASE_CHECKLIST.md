@@ -20,7 +20,7 @@ This file is for release preparation and should be removed or converted into an 
 - [ ] Recover final accepted-paper PMID/cohort files from an independent backup, if one exists. If none can be recovered, document the available source versions and limits of exact numerical reproduction.
 - [ ] Add the **exact preprocessing/tokenization code** used to build the pre-tokenized JSONL inputs.
 - [ ] Recover or reconstruct from surviving records the code/prompts/configuration for the paper's four controlled LLM experiments, clearly labeling anything reconstructed after acceptance.
-- [x] Document the author-supplied shared-scenario generation prompt design and paired-data checks in `prompts/`; exact historical requests, generation settings and other experiment prompts remain pending.
+- [x] Document the author-supplied free-form and shared-scenario generation prompt designs and data checks in `prompts/`; exact historical requests, generation settings and prompts for experiments 3 and 4 remain pending.
 - [x] Distinguish paper-reported aggregate tables, versioned historical cohorts and demo inputs.
 
 ## Important result mismatch to resolve
