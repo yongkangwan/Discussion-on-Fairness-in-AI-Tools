@@ -4,7 +4,7 @@
 > separately from archived run results and synthetic demo outputs. See
 > [the data card](../data/DATA_CARD.md) for source versions and cohort details.
 
-This page summarizes the headline results reported in the accepted manuscript. It is intentionally concise; exact experiment artifacts and preprocessing code are being reconciled before the final public release.
+This page summarizes the headline results reported in the manuscript. See [data availability](../data/FINAL_DATA_STATUS.md) for the corresponding source and run artifacts.
 
 ## Model reproduction
 

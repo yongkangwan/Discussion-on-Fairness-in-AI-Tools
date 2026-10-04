@@ -9,7 +9,7 @@
 <p align="center">
   <img alt="NeurIPS 2026 Position Paper Track" src="https://img.shields.io/badge/NeurIPS%202026-Position%20Paper%20Track-8A2BE2?style=flat-square">
   <img alt="Task" src="https://img.shields.io/badge/Focus-Linguistic%20Fairness-2E8B57?style=flat-square">
-  <img alt="Status" src="https://img.shields.io/badge/Status-Public%20Release%20Prep-DAA520?style=flat-square">
+  <img alt="Status" src="https://img.shields.io/badge/Status-Validated-2E8B57?style=flat-square">
 </p>
 
 </div>
@@ -67,7 +67,7 @@ These requirements are intended as a starting point for community discussion rat
 
 ## Repository scope
 
-The public release is being prepared around a **minimal-redistribution** policy:
+This repository follows a **minimal-redistribution** policy:
 
 - release code, configuration, PMIDs, cohort membership, and reproducibility metadata;
 - do **not** redistribute copied PubMed titles/abstracts, author affiliations, PubPeer text, or other third-party textual content;
@@ -232,4 +232,4 @@ Citation metadata will be added after the public NeurIPS/OpenReview record is av
 
 ## License
 
-A code license will be added before the repository is made public. Third-party data remain subject to their original providers' terms and are not relicensed by this repository.
+A code license has not yet been selected. Third-party data remain subject to their original providers' terms and are not relicensed by this repository.
