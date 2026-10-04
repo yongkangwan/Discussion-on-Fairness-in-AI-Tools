@@ -1,0 +1,167 @@
+{
+  "status": "passed",
+  "data_status": "demo-only",
+  "paper_results_reproduced": false,
+  "timestamp_utc": "2026-10-04T07:13:37.088174+00:00",
+  "python": "3.12.3",
+  "os": "Linux-5.15.0-94-generic-x86_64-with-glibc2.35",
+  "gpu": "NVIDIA GeForce RTX 4090 D",
+  "gpu_total_bytes": 25252724736,
+  "cuda_runtime": "12.8",
+  "versions": {
+    "torch": "2.8.0+cu128",
+    "transformers": "4.57.6",
+    "numpy": "2.3.2",
+    "scikit-learn": "1.7.2",
+    "safetensors": "0.6.2",
+    "tokenizers": "0.22.2",
+    "huggingface-hub": "0.36.2"
+  },
+  "model_files": {
+    "LICENSE": "43070e2d4e532684de521b885f385d0841030efa2b1a20bafb76133a5e1379c1",
+    "config.json": "7160e1553ad2ca51d8c1cb066be533db31826e12d173824c1bb0cb1a4f187d20",
+    "model.safetensors": "68d45e234eb4a928074dfd868cead0219ab85354cc53d20e772753c6bb9169d3",
+    "tokenizer.json": "ce64fce797c24f68df90b40a3f74f579b336a493db14bd583fd520ea0d8c9a98",
+    "tokenizer_config.json": "a025160ef0431f1a392f6f050c1310f4c5d9fb6f275932dbccba73c4d214bf10",
+    "vocab.txt": "07eced375cec144d27c900241f3e339478dec958f92fddbc551f295c992038a3"
+  },
+  "source_files": {
+    "train.py": "5aab7e3cdc5676787ba1a79b924ade677220f24a5c740150fd342b7ad49be21d",
+    "evaluate.py": "f4eed63dcb9f870aff886407fc75183ea1b12c0cc78514b7efc15edd98266578",
+    "paper_mill_common.py": "5615b6c76460be83249bc04556d1f3a6531d7ac6ab9bbf4f910d2a14ea8b2476",
+    "scripts/preprocess_articles.py": "a440118592ab6a8b939e1c0d75898303618e61cc0d392117cfeeb1a0b7a01fb5",
+    "scripts/run_gpu_validation.py": "c925f4c20c6f53891f88f99d6cb849a48cd2ab4f0558929ac093351d19fa50a2"
+  },
+  "configuration": {
+    "epochs": 2,
+    "batch_size": 32,
+    "max_length": 512,
+    "overlap": 32,
+    "fp16": true
+  },
+  "inputs": {
+    "internal_0": {
+      "articles": 32,
+      "chunks": 64,
+      "chunk_lengths": [
+        188,
+        512
+      ],
+      "sha256": "8198c637e24193c3ef30530c4b3ce768fc795bb606a5e925c6331c3dc13b6135"
+    },
+    "internal_1": {
+      "articles": 32,
+      "chunks": 64,
+      "chunk_lengths": [
+        188,
+        512
+      ],
+      "sha256": "56216b31c962570cd2a7e5d33c310f08b9b2718dad530037f81d7d4811a1e981"
+    },
+    "external_0": {
+      "articles": 8,
+      "chunks": 16,
+      "chunk_lengths": [
+        188,
+        512
+      ],
+      "sha256": "c3d932bb188252a35bdecfd7b199c088f0d56ca14aae591dff077d713bc46c3e"
+    },
+    "external_1": {
+      "articles": 8,
+      "chunks": 16,
+      "chunk_lengths": [
+        188,
+        512
+      ],
+      "sha256": "e63e5caf628f3f20b0c5d57cc0d864ed2a877ec7f2d71b17f5b255f87583851b"
+    }
+  },
+  "split_summary": {
+    "train": {
+      "articles": 44,
+      "positive_articles": 22,
+      "negative_articles": 22,
+      "chunks": 88
+    },
+    "validation": {
+      "articles": 11,
+      "positive_articles": 6,
+      "negative_articles": 5,
+      "chunks": 22
+    },
+    "test": {
+      "articles": 9,
+      "positive_articles": 4,
+      "negative_articles": 5,
+      "chunks": 18
+    }
+  },
+  "training": {
+    "status": "passed",
+    "elapsed_seconds": 4.3104179333895445,
+    "peak_allocated_bytes": 8419517952,
+    "peak_reserved_bytes": 8705277952,
+    "observations": {
+      "cuda_fp16_forward_calls": 10,
+      "training_forward_calls": 6,
+      "training_512_token_batches": 6,
+      "parameters": 109483778,
+      "trainable_parameters": 109483778
+    },
+    "input_shapes": [
+      [
+        18,
+        512
+      ],
+      [
+        22,
+        512
+      ],
+      [
+        24,
+        512
+      ],
+      [
+        32,
+        512
+      ]
+    ],
+    "first_classifier_sha256": "91d74b0afacd59b371ccf46a635b85f2a0e68187b75f6093d811963cd3fb4d7b",
+    "last_classifier_sha256": "5f6807d8c96c4373ff9bab33d89bf63f341c98017a9af26906a08260d8caa352",
+    "process_wall_seconds": 11.265925258398056
+  },
+  "external": {
+    "status": "passed",
+    "elapsed_seconds": 0.7395042441785336,
+    "peak_allocated_bytes": 1047285760,
+    "peak_reserved_bytes": 1251999744,
+    "observations": {
+      "cuda_fp16_forward_calls": 1,
+      "parameters": 109483778,
+      "trainable_parameters": 109483778
+    },
+    "input_shapes": [
+      [
+        32,
+        512
+      ]
+    ],
+    "first_classifier_sha256": "5f6807d8c96c4373ff9bab33d89bf63f341c98017a9af26906a08260d8caa352",
+    "last_classifier_sha256": "5f6807d8c96c4373ff9bab33d89bf63f341c98017a9af26906a08260d8caa352",
+    "process_wall_seconds": 8.121926261112094
+  },
+  "total_elapsed_seconds": 21.84226525016129,
+  "checks": [
+    "CUDA FP16 forwards",
+    "full BERT trainable",
+    "512-token batch",
+    "finite losses",
+    "updated weights reloaded",
+    "validation-derived cutoff",
+    "frozen external cutoff",
+    "disjoint external articles",
+    "chunk means and hard predictions"
+  ],
+  "memory_note": "Per-process PyTorch allocator peaks, not total board memory; timing excludes model download and installation."
+}

@@ -137,6 +137,11 @@ pytest -q
 
 A CUDA-enabled PyTorch installation is recommended for full training runs.
 
+The full BERT workflow has been [validated on an RTX 4090 D](docs/GPU_VALIDATION.md)
+with CUDA FP16, 512-token inputs and batch size 32. The guide includes tested
+dependency versions, setup commands and measured runtime/memory. Use
+`requirements-gpu-tested.txt` for that tested dependency combination.
+
 ## Training the BERT classifier
 
 The training code reads pre-tokenized JSONL. [data/pmids/](data/pmids/) provides

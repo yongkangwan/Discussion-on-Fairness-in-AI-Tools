@@ -86,6 +86,10 @@ software environment and saved artifacts. See
 
 ## Offline checks
 
+For a full BERT-base CUDA/FP16 check with 512-token inputs, see the
+[GPU setup and validation guide](GPU_VALIDATION.md). It includes the tested
+environment and a synthetic functional-check report with timing and memory peaks.
+
 After installing requirements:
 
 ```bash
