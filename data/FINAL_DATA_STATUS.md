@@ -16,6 +16,9 @@ input snapshots and saved outputs needed to replay a specific experiment.
 - [`prompts/`](../prompts/README.md): author-supplied shared-scenario generation
   design, requested output schema and paired-data review guidance. This is an
   approximate account of the design, not a verified historical request log.
+- Generation provider: OpenAI, as reported by the author. The latest-flagship
+  description as of 2026-04-02 points to GPT-5.4; the exact variant/snapshot is
+  unspecified. See the [model note and official source](../prompts/README.md#generation-model).
 
 ## Settings and outputs established by the training code
 

@@ -69,7 +69,10 @@ Controlled experiments 1–2 concern generated text, for which a PMID need not
 exist. The author-supplied [shared-scenario prompt design](../prompts/README.md)
 is available, with a target of 3,000 A/B pairs and scientific content held fixed
 by instruction. It is not a verified historical request or a released generated
-dataset. Experiments 3–4 need recovered source-PMID/pair/style mappings, prompts,
+dataset. The author identifies OpenAI as the generation provider and describes
+the model as the latest available on 2026-04-02; the [model note](../prompts/README.md#generation-model)
+maps this to GPT-5.4 under a latest-flagship interpretation, with the exact
+variant/snapshot unspecified. Experiments 3–4 need recovered source-PMID/pair/style mappings, prompts,
 model versions and generation settings. No such final artifacts were found in
 the inspected trees. We do not populate plausible substitutes.
 

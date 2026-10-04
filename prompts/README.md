@@ -21,6 +21,20 @@ aggregate results, versioned historical PMID lists and the offline demo retain
 their existing provenance. No new generated papers or experiment results are
 included with this prompt.
 
+## Generation model
+
+**Provider: OpenAI. Model family: GPT-5.4 (inferred from the author's date-based
+description).** The author describes using OpenAI's latest model as of
+2026-04-02. Interpreting "latest" as the latest flagship generation identifies
+GPT-5.4: OpenAI's [official release log](https://developers.openai.com/api/docs/changelog)
+records GPT-5.4 and GPT-5.4 Pro on 2026-03-05, followed by GPT-5.4 mini/nano on
+2026-03-17; GPT-5.5 was released to the API on 2026-04-24.
+
+The date alone does not identify the selected variant, ChatGPT mode, API model
+ID or snapshot. Those details remain unspecified rather than assigning a
+particular variant to the experiment. The date is a model-availability reference,
+not a verified timestamp for every generation request.
+
 ## Output contract
 
 The fields and scientific attributes to hold fixed are specified in the prompt.
@@ -66,10 +80,11 @@ keep the two members of a pair together.
 
 ## Generation records still needed
 
-The supplied design does not establish the provider, exact model/version,
-generation date, system instructions, temperature, top-p, seed, token limit,
-batching, retries or filtering used in the original experiment. These values
-must not be inferred from the prompt. For new runs, save the actual settings
+The provider and date-based model-family identification are recorded above.
+The exact variant/snapshot, request dates, system instructions, temperature,
+top-p, seed, token limit, batching, retries and filtering used in the original
+experiment remain unspecified. These values must not be inferred from the prompt
+or release date. For new runs, save the actual settings
 (including provider defaults or unsupported options), exact requests, raw
 responses, shared-scenario records if used, reviewed rows, exclusions and hashes.
 Also retain the evaluated checkpoint, preprocessing configuration, threshold and
