@@ -29,7 +29,7 @@ The large prediction gap motivates the controlled experiments that follow.
 ## Controlled style experiments
 
 The [generation prompts and guide](../prompts/README.md) describe the
-author-supplied free-form and shared-scenario designs and their data checks.
+author-supplied designs for all four generation/rewriting experiments and their data checks.
 The prompts have not been linked to original generation logs; the table below remains a
 transcription of paper-reported results.
 

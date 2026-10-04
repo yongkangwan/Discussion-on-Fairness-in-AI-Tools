@@ -74,9 +74,12 @@ not verified historical requests or released generated datasets. The author
 identifies OpenAI as the generation provider and describes
 the model as the latest available on 2026-04-02; the [model note](../prompts/README.md#generation-model)
 maps this to GPT-5.4 under a latest-flagship interpretation, with the exact
-variant/snapshot unspecified. Experiments 3–4 need recovered source-PMID/pair/style mappings, prompts,
-model versions and generation settings. No such final artifacts were found in
-the inspected trees. We do not populate plausible substitutes.
+variant/snapshot unspecified. Experiments 3–4 have author-supplied rewrite prompts
+for negative sources originally classified as positive or negative, respectively.
+Both produce one A/B pair per source with unchanged scientific content by
+instruction. Source-PMID/style mappings, exact model versions, generation
+settings and outputs remain to be recovered; they are not established by the
+prompt designs.
 
 ## Training configuration and processing
 
@@ -236,9 +239,8 @@ or upstream preprocessing records**, rather than unspecified training methods:
   environment. Fresh training produces these artifacts, including a newly
   calculated internal-validation threshold.
 - Exact historical controlled-experiment requests, generation settings,
-  source/pair mappings and outputs; prompts for experiments 3 and 4;
-  the inclusion record explaining experiment 4's denominator. The free-form and
-  shared-scenario designs in `prompts/` document the supplied methodology but not
-  those run records.
+  source/pair mappings and outputs; the inclusion record explaining experiment
+  4's denominator. Designs for all four experiments in `prompts/` document the
+  supplied methodology but not those run records.
 
 See [FINAL_DATA_STATUS.md](FINAL_DATA_STATUS.md) for the availability summary.

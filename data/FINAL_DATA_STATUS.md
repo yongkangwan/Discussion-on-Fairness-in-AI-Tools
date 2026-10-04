@@ -13,9 +13,10 @@ input snapshots and saved outputs needed to replay a specific experiment.
   model selection, internal-validation threshold selection and evaluation.
 - `examples/` and `run_demo.sh`: 32 synthetic articles and an offline end-to-end demo.
 - Retrieval, preprocessing and identifier verification utilities.
-- [`prompts/`](../prompts/README.md): author-supplied free-form and shared-scenario
-  generation designs, requested output schemas and data review guidance. These
-  are approximate accounts of the designs, not verified historical request logs.
+- [`prompts/`](../prompts/README.md): author-supplied designs for all four
+  experiments (free-form generation, shared-scenario generation, false-positive
+  rewrites and true-negative rewrites), output schemas and data review guidance.
+  These prompt designs are not verified historical request logs.
 - Generation provider: OpenAI, as reported by the author. The latest-flagship
   description as of 2026-04-02 points to GPT-5.4; the exact variant/snapshot is
   unspecified. See the [model note and official source](../prompts/README.md#generation-model).
@@ -63,8 +64,8 @@ released identifiers correspond to each manuscript experiment.
   predictions and software environment for the original reported run. Model and
   threshold selection rules are documented above.
 - **Controlled-experiment records:** exact historical requests, generation
-  settings, source/pair mappings and outputs. Free-form and shared-scenario
-  prompt designs are available; prompts for experiments 3 and 4 remain unavailable.
+  settings, source/pair mappings and outputs. Prompt designs for all four
+  experiments are available.
   Experiment 4's summary lists 3,000 per style whereas the
   paired table totals 2,999; the inclusion record is needed to explain the difference.
 - **Historical sampling inputs:** raw `other_20000.jsonl` and the old internal

@@ -88,7 +88,7 @@ The current repository contains the following core components:
 - `scripts/fetch_pubmed.py` / `scripts/preprocess_articles.py` — explicit new reconstructions with provenance manifests.
 - `scripts/verify_pmid_release.py` / `scripts/recover_historical_pmids.py` — validate exported identifiers and re-export pinned archive sources.
 - `run_demo.sh` — synthetic, offline text-to-chunk-to-training/evaluation demo.
-- `prompts/` — author-supplied free-form and shared-scenario generation prompts, output schemas and data review guidance.
+- `prompts/` — author-supplied prompts for all four generation/rewriting experiments, output schemas and data review guidance.
 - `tests/` — unit and end-to-end smoke tests for the available workflow.
 
 ## Run the offline demo

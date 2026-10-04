@@ -18,9 +18,10 @@ tracks the remaining gaps.
 
 The [controlled-generation prompt guide](../prompts/README.md) documents the
 author-supplied free-form design (3,000 articles per style) and shared-scenario
-design (3,000 matched A/B pairs). It provides the requested schemas and review
-guidance; generated data and original generation settings are not included.
-These synthetic datasets are intended for
+design (3,000 matched A/B pairs), plus paired rewriting of false-positive and
+true-negative source articles. It provides the requested schemas and review
+guidance; source/rewritten text, generated data and original generation settings
+are not included. These evaluation datasets are intended for
 bias evaluation, separate from the model's internal threshold-selection set.
 
 ## Run the demo

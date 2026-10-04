@@ -1,28 +1,33 @@
 # Controlled language-style generation
 
-These prompts specify synthetic cancer-research titles and abstracts for
-language-style bias evaluation. Their use of "validation dataset" refers to
+These prompts specify synthetic cancer-research titles and abstracts, and
+controlled rewrites of source articles, for language-style bias evaluation.
+Their use of "validation dataset" refers to
 classifier evaluation, not the internal validation set used to select a threshold.
 
 | Prompt | Design | Requested size | Corresponding experiment design |
 |---|---|---|---|
 | [`free_form.md`](free_form.md) | Generate articles in two styles without requiring shared scientific content across groups | 3,000 A + 3,000 B | `exp1_free_form` |
 | [`shared_scenario_pairs.md`](shared_scenario_pairs.md) | Render each shared study scenario in both styles | 3,000 matched pairs | `exp2_shared_skeleton` |
+| [`rewrite_false_positives.md`](rewrite_false_positives.md) | Rewrite a negative source article previously classified as positive | One A/B pair per source; no total specified | `exp3_rewrite_false_positives` |
+| [`rewrite_true_negatives.md`](rewrite_true_negatives.md) | Rewrite a negative source article previously classified as negative | One A/B pair per source; no total specified | `exp4_rewrite_true_negatives` |
 
 ## Prompt source and experiment coverage
 
-The project author supplied these prompts on 2026-10-04 as approximate accounts
-of the prompt designs. The prompt files preserve the supplied wording. The
-experiment mapping above describes their conceptual correspondence to
+The project author supplied these prompt designs on 2026-10-04. The two generation
+prompts were described as approximate accounts of the designs. The prompt files
+preserve the supplied wording except that the truncated opening of experiment 3
+("cle into two controlled English styles...") was completed with the full opening
+sentence from experiment 4. This is an editorial repair, not recovered wording.
+The experiment mapping above describes their conceptual correspondence to
 [`data/paper_results/`](../data/paper_results/); exact historical requests and
 their associations with saved generation runs have not been verified. Requested
 sizes are generation targets, not released dataset counts.
 
-Rewriting existing real articles (experiments 3 and 4) is not covered; those
-prompts remain to be supplied. Paper aggregate results, versioned historical
-PMID lists and the offline demo retain
-their existing provenance. No new generated papers or experiment results are
-included with these prompts.
+Prompt designs for all four experiments are available. Paper aggregate results,
+versioned historical PMID lists and the offline demo retain their existing
+provenance. No new generated papers, source articles, rewrites or experiment
+results are included with these prompts.
 
 ## Generation model
 
@@ -44,17 +49,20 @@ The output fields are specified in each prompt; their schemas are different.
 For a new run, JSONL with one object per title/abstract is a practical storage
 format; JSONL is a repository recommendation, not a recovered historical setting.
 
-- Use globally unique `id` values and `style_group` values of `"A"` or `"B"`.
-- Preserve every requested field. Store `label` as integer `0` and `synthetic`
-  and `for_bias_evaluation_only` as boolean `true` for new runs. The free-form
+- Use `style_group` values of `"A"` or `"B"`. Generation prompts require unique
+  `id` values; rewrite prompts identify records by `(source_id, style_group)`.
+- Preserve every requested field. Store `label` as integer `0` and
+  `for_bias_evaluation_only` as boolean `true`. Use `synthetic: true` for generated
+  articles and `synthetic_rewrite: true` for rewrites. The free-form
   prompt names these flags without specifying their serialized values; this
   boolean convention makes its synthetic evaluation purpose explicit.
 - Treat A/B as requested writing styles, not the nationality or language
-  background of real authors. `label = 0` is the intended synthetic negative
-  class, not an independently verified statement about real research.
+  background of real authors. `label = 0` is the experiment's intended negative
+  class; the prompt itself does not independently validate source legitimacy.
 - Retain pair/style metadata alongside model inputs. Only article text should
   enter the classifier; identifiers, style descriptions and labels are metadata.
-  These synthetic identifiers are not PMIDs and do not belong in `data/pmids/`.
+  Generated article identifiers are not PMIDs and do not belong in `data/pmids/`.
+  A rewrite's `source_id` may map to a real PMID; retain that mapping separately.
 
 ### Free-form output
 
@@ -77,13 +85,53 @@ rates; a paired outcome table requires independently established content matches
 `shared_scenario_pairs.md` requires exactly two records for every `pair_id`: one
 A and one B. This pairing requirement applies only to the shared-scenario design.
 
+### Source-article rewrites (experiments 3 and 4)
+
+For each source article, provide its identifier and actual source title/abstract
+with the selected rewrite prompt. Save the exact submitted text and its hash in
+the local run records. The prompt files do not contain source articles or define
+the original request wrapper, source-selection query or cohort membership.
+
+Both source cohorts have dataset label `0`. Experiment 3 selects sources with a
+positive original classifier decision; experiment 4 selects sources with a
+negative original decision. Retain the original prediction, checkpoint identity,
+preprocessing and frozen threshold as selection evidence. Do not infer eligibility
+from a filename or from the rewritten text's prediction.
+
+Require exactly one A and one B for each `source_id`, with unique
+`(source_id, style_group)` keys. Serialize `source_prediction` as the string
+`"false_positive"` for experiment 3 or `"true_negative"` for experiment 4.
+This field describes the original article's classification, not the prediction
+of either rewrite. Store new predictions separately; keep `label = 0` for both.
+
+Review each rewrite against the source and against its counterpart, preserving
+all scientific details listed in the prompt, including uncertainty, p-values,
+confidence intervals and qualification of conclusions where present. Do not
+invent details absent from the source. Log exclusions and retries and retain
+complete A/B pairs. These checks are guidance for new runs, not evidence that
+historical outputs have passed review.
+
+If adapting the rewrites to the classifier's chunk-input schema, give A and B
+distinct article identifiers, keeping the `source_id`/style mapping in a separate
+manifest. Reusing the source PMID for both would collapse distinct versions
+during article-level grouping. Use `source_id` to join the resulting A/B article
+predictions for paired statistics, and keep each pair together during resampling.
+
+The prompts specify two versions per source but no total cohort size. The paper
+tables report 913 per style in experiment 3 and 3,000 per style in experiment 4;
+experiment 4's paired table contains 2,999 pairs. These supplied prompts do not
+resolve that difference; retain actual inclusion/exclusion records for each run.
+Source and rewritten text remain subject to the repository's
+[data redistribution policy](../data/README.md#minimal-redistribution).
+
 ## Preparing and checking a new run
 
 Generating in batches is a practical option if an output limit prevents returning
 all articles at once. Record any batch-size instruction or other prompt modification
 in the actual request log, and use non-overlapping ID ranges. Record every
 exclusion or regeneration and the final retained group counts. In the
-shared-scenario design, retain complete pairs when retrying or excluding records.
+shared-scenario and rewrite designs, retain complete pairs when retrying or
+excluding records.
 
 For the shared-scenario design, check final pair counts and compare
 the paired scenario, cancer type, setting, period and focus fields. Also review
@@ -102,7 +150,8 @@ preprocessing settings and frozen internal-validation threshold for both styles.
 Keep these evaluation examples out of training and threshold selection. Aggregate
 chunks at article level before calculating style-specific positive rates. For
 the shared-scenario design, also join A/B predictions by `pair_id` to calculate
-paired outcome counts; resampling must keep the two members of a pair together.
+paired outcome counts; rewrite experiments join by `source_id`. Resampling must
+keep the two members of a pair together.
 
 ## Generation records still needed
 
