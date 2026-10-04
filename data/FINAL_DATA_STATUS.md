@@ -1,6 +1,6 @@
 # Data and run-artifact availability
 
-Updated: 2026-09-29. This page separates implemented training methods from the
+Updated: 2026-10-04. This page separates implemented training methods from the
 input snapshots and saved outputs needed to replay a specific experiment.
 
 ## Available data and code
@@ -13,6 +13,9 @@ input snapshots and saved outputs needed to replay a specific experiment.
   model selection, internal-validation threshold selection and evaluation.
 - `examples/` and `run_demo.sh`: 32 synthetic articles and an offline end-to-end demo.
 - Retrieval, preprocessing and identifier verification utilities.
+- [`prompts/`](../prompts/README.md): author-supplied shared-scenario generation
+  design, requested output schema and paired-data review guidance. This is an
+  approximate account of the design, not a verified historical request log.
 
 ## Settings and outputs established by the training code
 
@@ -56,8 +59,10 @@ released identifiers correspond to each manuscript experiment.
 - **Saved run outputs:** selected trained weights, `threshold.json`, per-article
   predictions and software environment for the original reported run. Model and
   threshold selection rules are documented above.
-- **Controlled-experiment records:** prompts, generation settings, source/pair
-  mappings and outputs. Experiment 4's summary lists 3,000 per style whereas the
+- **Controlled-experiment records:** exact historical requests, generation
+  settings, source/pair mappings and outputs. A shared-scenario prompt design is
+  now available; prompts for experiments 1, 3 and 4 remain unavailable.
+  Experiment 4's summary lists 3,000 per style whereas the
   paired table totals 2,999; the inclusion record is needed to explain the difference.
 - **Historical sampling inputs:** raw `other_20000.jsonl` and the old internal
   `split_manifest.json` for replaying the original eligibility calculation.

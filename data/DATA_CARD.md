@@ -66,7 +66,10 @@ geographic/linguistic assignment criteria, positive-label adjudication and exact
 cohort construction before tokenization remain unverified.
 
 Controlled experiments 1–2 concern generated text, for which a PMID need not
-exist. Experiments 3–4 need recovered source-PMID/pair/style mappings, prompts,
+exist. The author-supplied [shared-scenario prompt design](../prompts/README.md)
+is available, with a target of 3,000 A/B pairs and scientific content held fixed
+by instruction. It is not a verified historical request or a released generated
+dataset. Experiments 3–4 need recovered source-PMID/pair/style mappings, prompts,
 model versions and generation settings. No such final artifacts were found in
 the inspected trees. We do not populate plausible substitutes.
 
@@ -227,7 +230,9 @@ or upstream preprocessing records**, rather than unspecified training methods:
 - Saved trained weights, the selected run's `threshold.json`, predictions and
   environment. Fresh training produces these artifacts, including a newly
   calculated internal-validation threshold.
-- Controlled-experiment prompts, generation settings, source/pair mappings and
-  outputs; the inclusion record explaining experiment 4's denominator.
+- Exact historical controlled-experiment requests, generation settings,
+  source/pair mappings and outputs; prompts for experiments 1, 3 and 4;
+  the inclusion record explaining experiment 4's denominator. The shared-scenario
+  design in `prompts/` documents the supplied methodology but not those run records.
 
 See [FINAL_DATA_STATUS.md](FINAL_DATA_STATUS.md) for the availability summary.

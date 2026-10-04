@@ -16,6 +16,12 @@ commands. [pmids/README.md](pmids/README.md) lists each recovered cohort with
 counts and explains verification. [FINAL_DATA_STATUS.md](FINAL_DATA_STATUS.md)
 tracks the remaining gaps.
 
+The [controlled-generation prompt guide](../prompts/README.md) documents the
+author-supplied design for 3,000 synthetic A/B pairs describing shared research
+scenarios. It provides the requested schema and review guidance; generated data
+and original generation settings are not included. These pairs are intended for
+bias evaluation, separate from the model's internal threshold-selection set.
+
 ## Run the demo
 
 After installing the top-level requirements, from the repository root:
