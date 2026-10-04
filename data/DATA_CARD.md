@@ -49,7 +49,7 @@ set after selecting the model; each new run saves its own value in `threshold.js
 
 Historical README and report identify `positive_chunks.jsonl` as internal
 positive-role data and `top_china.jsonl`, `top_other_train.jsonl`,
-`top_taiwan.jsonl` as internal negative-role sources. These are source pools;
+`top_taiwan.jsonl` (Taiwan, China) as internal negative-role sources. These are source pools;
 the training script subsequently assigns their articles to train/validation/test
 and saves the mapping in `split_manifest.json`. `positive_chunks_dedup_pubpeer.jsonl`
 is the historical external positive-role source. Its stored labels are all 0;

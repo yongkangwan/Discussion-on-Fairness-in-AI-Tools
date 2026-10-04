@@ -5,12 +5,16 @@ versions and verification hashes. Labels describe experimental roles; they are
 not judgments about individual articles or authors. See [the data card](../DATA_CARD.md)
 for cohort definitions and processing rules.
 
+The source cohort for Taiwan, China is displayed with that geographic label
+below. Historical filenames and cohort IDs are retained for provenance and
+compatibility with the verification scripts.
+
 | List | Unique PMIDs | Source chunk rows | Historical role |
 |---|---:|---:|---|
 | [internal_positive_pool](historical/internal_positive_pool.txt) | 2,122 | 2,518 | internal positive-role pool |
 | [internal_negative_top_china](historical/internal_negative_top_china.txt) | 100 | 100 | internal negative-role source |
 | [internal_negative_top_other_train](historical/internal_negative_top_other_train.txt) | 1,400 | 1,683 | internal negative-role source |
-| [internal_negative_top_taiwan](historical/internal_negative_top_taiwan.txt) | 600 | 668 | internal negative-role source |
+| [Internal negative source — Taiwan, China](historical/internal_negative_top_taiwan.txt) | 600 | 668 | internal negative-role source |
 | [external_positive_pubpeer](historical/external_positive_pubpeer.txt) | 3,290 | 3,961 | external positive-role source |
 | [external_negative_raw](historical/external_negative_raw.txt) | 2,999 | 3,612 | raw external negative-role source |
 | [external_negative_clean](historical/external_negative_clean.txt) | 2,987 | 3,599 | external negative after internal-pool exclusion |
@@ -24,7 +28,8 @@ Internal positive plus the three internal negative pools contain 4,218 unique
 articles. The training script creates the train/validation/test assignments from these
 input pools and saves them to `split_manifest.json`. The old run's saved split
 manifest is not included. The negative
-sources share four article memberships (two China/Other, two Taiwan/Other).
+sources share four article memberships: two between the China and Other source
+pools, and two between the Taiwan, China and Other source pools.
 The external negative raw pool shares 12 PMIDs with the internal union; the clean
 list equals exactly raw minus that union. The two 5,000-article audit lists are
 disjoint and have no overlap with the internal union or external positives.
