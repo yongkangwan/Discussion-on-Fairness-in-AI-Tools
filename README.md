@@ -18,7 +18,7 @@
 
 **Position.** Text-based AI tools used for research-integrity screening should undergo mandatory linguistic-fairness auditing before deployment in editorial, institutional, or policy workflows.
 
-We support this position with a case study of a BERT-based paper-mill detector. The paper shows that strong aggregate benchmark performance can coexist with large linguistic-group disparities: legitimate non-native-English papers from high-impact journals receive a mean predicted paper-mill probability of **42.0%**, compared with **2.0%** for native-English papers. Controlled LLM-based rewriting experiments further show that changing writing style alone can alter model decisions even when content is held fixed.
+We support this position with a case study of a BERT-based paper-mill detector. The paper shows that strong aggregate benchmark performance can coexist with large linguistic-group disparities: legitimate non-native-English papers from high-impact journals receive a mean predicted paper-mill probability of **42.0%**, compared with **3.0%** for native-English papers. Controlled LLM-based rewriting experiments further show that changing writing style alone can alter model decisions even when content is held fixed.
 
 This repository provides a BERT-based training and evaluation pipeline,
 article-level fairness analysis, PMID cohort lists, and a runnable offline demo.
@@ -41,16 +41,16 @@ The paper organizes the empirical analysis into three stages:
 
 1. **Model reproduction** — reproduce the BERT-based paper-mill screening pipeline and establish a reliable baseline.
 2. **Real-world linguistic-bias audit** — compare model behavior on 5,000 non-native-English and 5,000 native-English papers from high-impact journals.
-3. **Controlled style experiments** — use LLM-based generation and rewriting to hold content fixed while varying linguistic style.
+3. **Controlled style experiments** — compare a free-form generation baseline with shared-content generation and source-preserving rewrites in two linguistic styles.
 
 ### Headline findings
 
 <p align="center">
-  <img src="docs/fairness_gap.svg" alt="Mean predicted paper-mill probability gap between the two audit groups" width="78%"/>
+  <img src="docs/fairness_gap.svg" alt="Mean predicted paper-mill probability: 42.0% for the non-native-English proxy and 3.0% for the native-English proxy" width="78%"/>
 </p>
 
 - The reproduced detector achieves strong aggregate validation performance, establishing a credible baseline for the fairness audit.
-- Legitimate non-native-English papers receive a mean predicted paper-mill probability of **42.0%**, compared with **2.0%** for native-English papers.
+- Legitimate non-native-English papers receive a mean predicted paper-mill probability of **42.0%**, compared with **3.0%** for native-English papers—an approximately **14-fold** difference.
 - Across controlled experiments, non-native-English style consistently receives substantially higher positive rates than native-English style.
 - In the paired experiments reported in the paper, switching from native-English style to non-native-English style can flip negative predictions to positive, while the reverse direction is not observed.
 

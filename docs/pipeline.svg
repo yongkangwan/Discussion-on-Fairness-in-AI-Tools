@@ -29,13 +29,13 @@
   <text x="530" y="137" font-family="Arial" font-size="22" font-weight="700" fill="#166534">Real-world audit</text>
   <text x="480" y="180" font-family="Arial" font-size="17" fill="#334155">5,000 non-native-English vs.</text>
   <text x="480" y="206" font-family="Arial" font-size="17" fill="#334155">5,000 native-English papers</text>
-  <text x="480" y="242" font-family="Arial" font-size="16" font-weight="700" fill="#16a34a">42.0% vs. 2.0% mean score</text>
+  <text x="480" y="242" font-family="Arial" font-size="16" font-weight="700" fill="#16a34a">42.0% vs. 3.0% mean score</text>
 
   <circle cx="888" cy="132" r="21" fill="#7c3aed"/>
   <text x="888" y="140" text-anchor="middle" font-family="Arial" font-size="22" font-weight="700" fill="white">3</text>
-  <text x="925" y="137" font-family="Arial" font-size="22" font-weight="700" fill="#5b21b6">Controlled style tests</text>
-  <text x="875" y="180" font-family="Arial" font-size="17" fill="#334155">Hold content fixed and vary</text>
-  <text x="875" y="206" font-family="Arial" font-size="17" fill="#334155">linguistic style with LLMs</text>
+  <text x="925" y="137" font-family="Arial" font-size="20" font-weight="700" fill="#5b21b6">Controlled style tests</text>
+  <text x="875" y="180" font-family="Arial" font-size="17" fill="#334155">Compare free-form and</text>
+  <text x="875" y="206" font-family="Arial" font-size="17" fill="#334155">content-controlled LLM texts</text>
   <text x="875" y="242" font-family="Arial" font-size="16" font-weight="700" fill="#7c3aed">Style alone can flip predictions</text>
 
   <path d="M370 190 H430" stroke="#64748b" stroke-width="5" stroke-linecap="round"/>

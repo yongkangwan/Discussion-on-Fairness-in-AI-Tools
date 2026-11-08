@@ -22,9 +22,11 @@ On 5,000 legitimate high-impact-journal papers in each group:
 | Group | Number of papers | Mean predicted paper-mill probability |
 |---|---:|---:|
 | Non-native English | 5,000 | 42.0% |
-| Native English | 5,000 | 2.0% |
+| Native English | 5,000 | 3.0% |
 
-The large prediction gap motivates the controlled experiments that follow.
+The approximately 14-fold difference in mean scores motivates the controlled
+experiments that follow. These values follow Table 3 of the final manuscript;
+see [table provenance](../data/paper_results/README.md).
 
 ## Controlled style experiments
 

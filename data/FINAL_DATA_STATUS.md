@@ -1,6 +1,6 @@
 # Data and run-artifact availability
 
-Updated: 2026-10-04. This page separates implemented training methods from the
+Updated: 2026-11-08. This page separates implemented training methods from the
 input snapshots and saved outputs needed to replay a specific experiment.
 
 ## Available data and code
@@ -47,7 +47,7 @@ hashes also match the historical experiment report. See
 [pmids/README.md](pmids/README.md) for evidence and overlap checks.
 
 That report gives audit mean scores of 0.266995 and 0.012326, while the manuscript
-aggregate tables give 0.42 and 0.02. These records describe different results and
+aggregate tables give 0.42 and 0.03. These records describe different results and
 remain separately identified. Cohort sizes alone do not establish that all
 released identifiers correspond to each manuscript experiment.
 
@@ -66,8 +66,9 @@ released identifiers correspond to each manuscript experiment.
 - **Controlled-experiment records:** exact historical requests, generation
   settings, source/pair mappings and outputs. Prompt designs for all four
   experiments are available.
-  Experiment 4's summary lists 3,000 per style whereas the
-  paired table totals 2,999; the inclusion record is needed to explain the difference.
+  The final manuscript now gives 3,000 experiment 4 pairs, consistent with its
+  summary. Aggregate tables have been updated; pair-level source and inclusion
+  records are still separate artifacts. See [table provenance](paper_results/README.md).
 - **Historical sampling inputs:** raw `other_20000.jsonl` and the old internal
   `split_manifest.json` for replaying the original eligibility calculation.
 

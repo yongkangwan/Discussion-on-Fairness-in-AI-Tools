@@ -119,8 +119,9 @@ predictions for paired statistics, and keep each pair together during resampling
 
 The prompts specify two versions per source but no total cohort size. The paper
 tables report 913 per style in experiment 3 and 3,000 per style in experiment 4;
-experiment 4's paired table contains 2,999 pairs. These supplied prompts do not
-resolve that difference; retain actual inclusion/exclusion records for each run.
+the final manuscript's experiment 4 paired counts total 3,000 (98 + 0 + 35 +
+2,867), consistent with that summary. See [table provenance](../data/paper_results/README.md).
+Retain actual source mappings and inclusion/exclusion records for each run.
 Source and rewritten text remain subject to the repository's
 [data redistribution policy](../data/README.md#minimal-redistribution).
 

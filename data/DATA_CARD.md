@@ -1,6 +1,6 @@
 # Data card: evidence, cohorts, and preprocessing
 
-Updated: 2026-09-29. This card documents data sources, cohort membership,
+Updated: 2026-11-08. This card documents data sources, cohort membership,
 input format, training settings and preprocessing. It distinguishes paper-reported
 aggregate results, versioned historical data, synthetic demo inputs and newly
 retrieved/reprocessed data (`reconstruction`).
@@ -14,10 +14,11 @@ retrieved/reprocessed data (`reconstruction`).
 | Demo-only | `examples/`, `run_demo.sh` | Entirely synthetic text and a runnable software demonstration |
 | New reconstruction | Local `data/generated/` or `runs/` | Current provider records and an explicitly chosen new tokenization recipe |
 
-`paper_results/` contains manuscript-reported aggregate tables, stored separately
-from the source cohorts. Experiment 4 lists 3,000 per style in the summary but
-2,999 pairs in `paired_outcomes.csv`; the pair-level inclusion record is needed
-to explain that denominator difference.
+`paper_results/` contains final-manuscript aggregate tables, stored separately
+from the source cohorts. The final Table 5 gives experiment 4 paired counts of
+98, 0, 35 and 2,867, totaling 3,000 pairs and matching the summary count per style.
+See [table provenance](paper_results/README.md) for the manuscript version and
+table definitions.
 
 ## Source provenance
 
@@ -38,7 +39,7 @@ for the inventory and verification instructions.
 The historical report describes a 2026-07-27 run with 4,218 internal articles,
 3,290 external positives and 2,999 raw external negatives (2,987 after removal of
 12 overlapping internal articles). Its two 5,000-article audit groups have mean
-positive scores **0.266995** and **0.012326**, versus **0.42** and **0.02** in the
+positive scores **0.266995** and **0.012326**, versus **0.42** and **0.03** in the
 paper table. The historical internal test accuracy is **0.95265**, versus **0.97**
 in the paper table. Matching sample sizes alone does not establish final-paper
 membership. That report records threshold `0.0316187665` for its run. In the
@@ -239,8 +240,8 @@ or upstream preprocessing records**, rather than unspecified training methods:
   environment. Fresh training produces these artifacts, including a newly
   calculated internal-validation threshold.
 - Exact historical controlled-experiment requests, generation settings,
-  source/pair mappings and outputs; the inclusion record explaining experiment
-  4's denominator. Designs for all four experiments in `prompts/` document the
+  source/pair mappings, outputs and inclusion/exclusion records. Designs for all
+  four experiments in `prompts/` document the
   supplied methodology but not those run records.
 
 See [FINAL_DATA_STATUS.md](FINAL_DATA_STATUS.md) for the availability summary.
